@@ -85,10 +85,14 @@ graph TD
         commit-staged --> create-pr
     end
 
-    %% Review branch
-    review-feature-branch([/review-feature-branch]):::review --> peer-review
-    review-feature-branch --> fetch-pr-comments([/fetch-pr-comments]):::review
-    review-feature-branch --> evaluate-findings
+    %% Code review (reusable core)
+    code-review([/code-review]):::review --> peer-review
+    code-review --> evaluate-findings
+
+    %% Review orchestrators
+    review-feature-branch([/review-feature-branch]):::review --> code-review
+    review-pr([/review-pr]):::review --> code-review
+    review-pr --> fetch-pr-comments([/fetch-pr-comments]):::review
 
     %% Delegation
     peer-review -.-> codex([/codex]):::review
@@ -96,6 +100,7 @@ graph TD
     %% Debugging
     stage -. "test failures" .-> investigate([/investigate]):::debug
     review-feature-branch -. "phase failures" .-> investigate
+    review-pr -. "phase failures" .-> investigate
     investigate -. "escalate" .-> oracle([/oracle]):::debug
 
     %% Knowledge
@@ -272,7 +277,8 @@ Each session handles one prompt. This keeps context focused and avoids running o
 | Skill | What it does |
 |---|---|
 | `/finalize` | Post-implementation QA: test, simplify, review, commit, PR |
-| `/review-feature-branch` | Full branch review: AI review + PR comments + evaluation |
+| `/review-feature-branch` | Full branch review: code review + evaluation + optional finalization |
+| `/review-pr` | Full PR review: code review + PR comments + evaluation + optional finalization |
 
 ### Planning
 
@@ -289,6 +295,7 @@ Each session handles one prompt. This keeps context focused and avoids running o
 |---|---|
 | `/code-style` | Enforce mirror, reuse, and symmetry principles |
 | `/simplify-plus` | Multi-agent review for reuse, quality, efficiency, clarity |
+| `/code-review` | AI code review + findings evaluation (reusable core) |
 | `/peer-review` | AI code review interface that delegates to `/codex` by default |
 | `/codex` | AI code review and task execution via codex CLI |
 | `/evaluate-findings` | Confidence-based triage of review feedback |

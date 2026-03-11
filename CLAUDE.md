@@ -1,6 +1,6 @@
 # Turbo
 
-Turbo is a modular collection of Claude Code skills — each skill teaches Claude a specific dev workflow. Skills connect into larger pipelines via orchestrator skills like `/finalize` and `/review-feature-branch`. See [README.md](README.md) for the full overview and dependency graph.
+Turbo is a modular collection of Claude Code skills — each skill teaches Claude a specific dev workflow. Skills connect into larger pipelines via orchestrator skills like `/finalize` and `/review-pr`. See [README.md](README.md) for the full overview and dependency graph.
 
 ## Project Structure
 

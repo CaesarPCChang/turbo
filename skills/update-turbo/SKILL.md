@@ -53,7 +53,18 @@ npx skills add tobihagemann/turbo --skill '*' --agent claude-code -y -g
 
 ## Step 4: Clean Up Removed Skills
 
-Compare installed Turbo skills (symlinks in `~/.claude/skills/` pointing to the Turbo repo) against the current repo skill list. If a symlinked skill no longer exists in the repo, inform the user and remove it:
+Compare installed skills against the current repo skill list. A skill is a Turbo skill if `~/.claude/skills/<name>` is a symlink (non-symlinked directories are user-owned and should be skipped). Check without trailing slash so `-L` works:
+
+```bash
+remote_skills=$(gh api repos/tobihagemann/turbo/contents/skills --jq '.[].name')
+for skill in ~/.claude/skills/*; do
+  [ -L "$skill" ] || continue
+  name=$(basename "$skill")
+  echo "$remote_skills" | grep -qx "$name" || echo "REMOVED: $name"
+done
+```
+
+If any removed skills are found, inform the user and remove each one:
 
 ```bash
 npx skills remove <skill-name> -g -y
