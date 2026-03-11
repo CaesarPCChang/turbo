@@ -186,6 +186,6 @@ Present the user with a summary of how to get started:
 1. **The main workflow:** Enter plan mode, implement changes, then run `/finalize` to test, review, commit, and create a PR.
 2. **All available skills:** See the [README](README.md#all-skills) for the full list with descriptions.
 3. **The planning pipeline:** For larger projects, see [The Planning Pipeline](README.md#the-planning-pipeline-optional).
-4. **Self-improvement:** Run `/distill-session` before context runs out to capture lessons for future sessions.
+4. **Self-improvement:** Run `/self-improve` before context runs out to capture lessons for future sessions.
 5. **Track improvements:** When noticing something out of scope, run `/note-improvement` so it doesn't get lost.
 6. **Updating:** Run `/update-turbo` to update all skills with conflict detection and exclusion support.

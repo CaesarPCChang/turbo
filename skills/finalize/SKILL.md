@@ -5,7 +5,7 @@ description: Run the post-implementation quality assurance workflow including te
 
 # Finalize Implementation
 
-Post-implementation QA workflow: staging, tests, code simplification, AI review, commit, and session distillation.
+Post-implementation QA workflow: staging, tests, code simplification, AI review, commit, and self-improvement.
 
 ## Task Tracking
 
@@ -14,7 +14,7 @@ At the start, use `TaskCreate` to create a task for each phase:
 1. Stage and test
 2. Simplify code
 3. Code review
-4. Distill session
+4. Self-improve
 5. Commit
 6. Pull request
 
@@ -71,9 +71,9 @@ Run the `/simplify-plus` skill. The diff command for this phase is `git diff` (N
 2. If tests fail, run the `/investigate` skill to diagnose the root cause, apply the suggested fix, and re-run tests. If investigation cannot identify a root cause, stop and report with investigation findings.
 3. Run the project's linter/formatter to ensure clean output
 
-## Phase 4: Distill Session
+## Phase 4: Self-Improve
 
-Run the `/distill-session` skill.
+Run the `/self-improve` skill.
 
 ## Phase 5: Commit
 

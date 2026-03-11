@@ -4,11 +4,11 @@ A modular collection of [Claude Code](https://docs.anthropic.com/en/docs/claude-
 
 ## What Is This?
 
-Turbo is a skill set for Claude Code. Each skill teaches Claude a specific workflow: reviewing code, creating PRs, investigating bugs, distilling session learnings, and more. The skills are designed to [work together](#how-skills-connect).
+Turbo is a skill set for Claude Code. Each skill teaches Claude a specific workflow: reviewing code, creating PRs, investigating bugs, self-improving from session learnings, and more. The skills are designed to [work together](#how-skills-connect).
 
 The key idea: skills aren't just standalone tools you use next to each other. They're [puzzle pieces](#the-puzzle-piece-philosophy) that connect into larger workflows. The main orchestrator, [`/finalize`](#the-main-workflow), chains testing, code simplification, AI review, committing, and PR creation into one command. But each piece is small and swappable. Replace one skill with your own and the rest of the pipeline still works.
 
-The other core piece is [`/distill-session`](#self-improvement), which makes the whole system compound. After each session, it extracts lessons from the conversation and routes them to the right place: project CLAUDE.md, auto memory, or existing/new skills. Every session teaches Claude something, and future sessions benefit.
+The other core piece is [`/self-improve`](#self-improvement), which makes the whole system compound. After each session, it extracts lessons from the conversation and routes them to the right place: project CLAUDE.md, auto memory, or existing/new skills. Every session teaches Claude something, and future sessions benefit.
 
 ## What It's Not
 
@@ -66,8 +66,8 @@ graph TD
             peer-review([/peer-review]):::review --> evaluate-findings([/evaluate-findings]):::review
         end
 
-        subgraph p4 ["Phase 4 — Distill Session"]
-            distill-session([/distill-session]):::know
+        subgraph p4 ["Phase 4 — Self-Improve"]
+            self-improve([/self-improve]):::know
         end
 
         subgraph p5 ["Phase 5 — Commit"]
@@ -80,8 +80,8 @@ graph TD
 
         stage --> simplify-plus
         simplify-plus --> peer-review
-        evaluate-findings --> distill-session
-        distill-session --> commit-staged
+        evaluate-findings --> self-improve
+        self-improve --> commit-staged
         commit-staged --> create-pr
     end
 
@@ -104,7 +104,7 @@ graph TD
     investigate -. "escalate" .-> oracle([/oracle]):::debug
 
     %% Knowledge
-    subgraph knowledge ["/distill-session — Self-Improvement"]
+    subgraph knowledge ["/self-improve — Self-Improvement"]
         direction TB
         ds-detect(["1. Detect Context"]):::know --> ds-scan(["2. Scan Session"]):::know --> ds-filter(["3. Filter"]):::know --> ds-route(["4. Route"]):::know --> ds-present(["5. Present"]):::know --> ds-execute(["6. Execute"]):::know
     end
@@ -112,7 +112,7 @@ graph TD
     ds-execute -.-> create-skill([/create-skill]):::know
     ds-execute -.-> note-improvement([/note-improvement]):::know
 
-    distill-session -. "routes learnings" .-> ds-detect
+    self-improve -. "routes learnings" .-> ds-detect
 
     classDef plan fill:#dcfce7,stroke:#22c55e
     classDef review fill:#dbeafe,stroke:#3b82f6
@@ -240,7 +240,7 @@ The recommended way to use Turbo:
 1. **Stage & Test** — Stage changed files, write missing tests, run test suite
 2. **Simplify Code** — Multi-agent review for reuse, quality, efficiency, clarity
 3. **Code Review** — AI peer review, evaluate findings, apply fixes, re-test
-4. **Distill Session** — Extract learnings, route to CLAUDE.md / memory / skills
+4. **Self-Improve** — Extract learnings, route to CLAUDE.md / memory / skills
 5. **Commit** — Formulate commit message, create commit
 6. **Pull Request** — Create or update PR, optionally resolve review comments
 
@@ -252,7 +252,7 @@ The recommended way to use Turbo:
 
 ### Self-Improvement
 
-`/distill-session` is another core skill. Run it anytime before your context runs out (it's also part of `/finalize` Phase 4). It scans the conversation for corrections, repeated guidance, failure modes, and preferences, then routes each lesson to the right place: project CLAUDE.md, auto memory, or existing/new skills. It routes lessons through Claude Code's built-in knowledge layers and, over time, makes Claude better at your specific project.
+`/self-improve` is another core skill. Run it anytime before your context runs out (it's also part of `/finalize` Phase 4). It scans the conversation for corrections, repeated guidance, failure modes, and preferences, then routes each lesson to the right place: project CLAUDE.md, auto memory, or existing/new skills. It routes lessons through Claude Code's built-in knowledge layers and, over time, makes Claude better at your specific project.
 
 `/note-improvement` captures improvement opportunities that come up during work but are out of scope: code review findings you chose to skip, refactoring ideas, missing tests. These get tracked in `.turbo/improvements.md` so they don't get lost. Since `.turbo/` is gitignored, it doesn't clutter the repo.
 
@@ -324,7 +324,7 @@ Each session handles one prompt. This keeps context focused and avoids running o
 
 | Skill | What it does |
 |---|---|
-| `/distill-session` | Extract session learnings to CLAUDE.md, memory, or skills |
+| `/self-improve` | Extract session learnings to CLAUDE.md, memory, or skills |
 | `/note-improvement` | Capture out-of-scope improvement ideas for later |
 | `/create-skill` | Create or update a skill with proper structure |
 | `/update-npm-deps` | Smart npm dependency upgrades with breaking change research |

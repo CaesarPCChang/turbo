@@ -36,9 +36,9 @@ Auto-detect owner, repo, and PR number from current branch if not provided. Filt
 
 Run the `/evaluate-findings` skill on the unresolved threads to assess each comment. Proceed with the evaluation results — apply high/medium confidence fixes and skip low confidence suggestions.
 
-## Step 3: Distill Session
+## Step 3: Self-Improve
 
-Run the `/distill-session` skill.
+Run the `/self-improve` skill.
 
 ## Step 4: Stage and Commit
 
