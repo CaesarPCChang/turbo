@@ -1,16 +1,16 @@
 ---
 name: investigate
-description: Systematically investigate bugs, test failures, build errors, performance issues, or unexpected behavior by cycling through characterize-isolate-hypothesize-test phases. Use when the user asks to "investigate this bug", "debug this", "figure out why this fails", "find the root cause", "why is this broken", "troubleshoot this", "diagnose the issue", "what's causing this error", "look into this failure", "why is this test failing", or "track down this bug".
+description: Systematically investigate bugs, test failures, build errors, performance issues, or unexpected behavior by cycling through characterize-isolate-hypothesize-test steps. Use when the user asks to "investigate this bug", "debug this", "figure out why this fails", "find the root cause", "why is this broken", "troubleshoot this", "diagnose the issue", "what's causing this error", "look into this failure", "why is this test failing", or "track down this bug".
 argument-hint: "[problem description or error message]"
 ---
 
 # Investigate
 
-Systematic methodology for finding the root cause of bugs, failures, and unexpected behavior. Cycle through characterize-isolate-hypothesize-test phases, with oracle escalation for hard problems. Diagnose the root cause — do not apply fixes. Return results for the main agent to act on.
+Systematic methodology for finding the root cause of bugs, failures, and unexpected behavior. Cycle through characterize-isolate-hypothesize-test steps, with oracle escalation for hard problems. Diagnose the root cause — do not apply fixes. Return results for the main agent to act on.
 
 Optional: `$ARGUMENTS` contains the problem description or error message.
 
-## Phase 1: Characterize
+## Step 1: Characterize
 
 Gather the symptom and establish what is actually happening:
 
@@ -30,7 +30,7 @@ Gather the symptom and establish what is actually happening:
 
 Record the exact reproduction command and its output for verification.
 
-## Phase 2: Isolate
+## Step 2: Isolate
 
 Narrow from "something is wrong" to "the problem is in this area." Read [references/problem-type-playbooks.md](references/problem-type-playbooks.md) for type-specific first moves and tool sequences.
 
@@ -52,7 +52,7 @@ If a known-good state exists (e.g., "this worked yesterday"), consider `git bise
 - **Build errors**: Read the config file and the referenced source
 - **Unexpected behavior**: Trace the data flow from input to the unexpected output
 
-## Phase 3: Hypothesize
+## Step 3: Hypothesize
 
 Generate 2-4 hypotheses ranked by likelihood. Each hypothesis must be **falsifiable** — specify what evidence would confirm or refute it.
 
@@ -77,9 +77,9 @@ Launch in parallel using `run_in_background: true`:
 1. **One subagent per hypothesis** — each receives the hypothesis, relevant file paths, what evidence to look for, and instructions to report **confirmed** / **refuted** / **inconclusive** with evidence. Budget: max 5 tool calls per subagent.
 2. **Codex exec** (read-only) — run the `/codex` skill in exec mode with a focused prompt describing the problem, reproduction, and files examined. Provides an independent perspective that may spot patterns the hypothesis-driven subagents miss. Run the `/evaluate-findings` skill on its output.
 
-After all investigators complete, merge results. Codex findings that overlap with a subagent's confirmed hypothesis reinforce confidence. Novel codex findings become additional hypotheses to test in Phase 4.
+After all investigators complete, merge results. Codex findings that overlap with a subagent's confirmed hypothesis reinforce confidence. Novel codex findings become additional hypotheses to test in Step 4.
 
-## Phase 4: Test
+## Step 4: Test
 
 Verify each hypothesis with minimal, targeted actions:
 
@@ -104,8 +104,8 @@ Record each result:
 If all hypotheses are refuted or inconclusive:
 
 1. Document what was learned — each refuted hypothesis eliminates a possibility and narrows the search
-2. Return to Phase 2 with the new information to re-isolate
-3. Generate new hypotheses in Phase 3 based on updated understanding
+2. Return to Step 2 with the new information to re-isolate
+3. Generate new hypotheses in Step 3 based on updated understanding
 
 **Cycle budget**: maximum 2 full cycles (hypothesize → test → learn → repeat) before escalating.
 

@@ -99,8 +99,8 @@ graph TD
 
     %% Debugging
     stage -. "test failures" .-> investigate([/investigate]):::debug
-    review-feature-branch -. "phase failures" .-> investigate
-    review-pr -. "phase failures" .-> investigate
+    review-feature-branch -. "step failures" .-> investigate
+    review-pr -. "step failures" .-> investigate
     investigate -. "escalate" .-> oracle([/oracle]):::debug
 
     %% Knowledge

@@ -7,13 +7,13 @@ description: Run a multi-agent review of changed files for reuse, quality, effic
 
 Review all changed files for reuse, quality, and efficiency. Fix any issues found.
 
-## Phase 1: Determine the Diff Command
+## Step 1: Determine the Diff Command
 
 Determine the appropriate diff command (e.g. `git diff`, `git diff --cached`, `git diff HEAD`) based on the current git state. If the caller specifies which diff command to use, use that. Do NOT run the diff yourself — each review agent will run it independently to keep the diff out of the main agent's context.
 
 If there are no git changes, review the most recently modified files that the user mentioned or that you edited earlier in this conversation.
 
-## Phase 2: Launch Four Review Agents in Parallel
+## Step 2: Launch Four Review Agents in Parallel
 
 Use the Agent tool to launch all four agents concurrently in a single message. Every Agent tool call must set `model: "opus"`. Instruct each agent to run the diff command itself to obtain the diff.
 
@@ -57,7 +57,7 @@ Review the same changes for clarity, standards, and balance:
 4. **Over-simplification**: overly clever solutions that are hard to understand, too many concerns combined into single functions or components, "fewer lines" prioritized over readability (dense one-liners, nested ternaries), helpful abstractions removed that were aiding code organization
 5. **Dead weight**: unnecessary comments, redundant code, abstractions that add indirection without value
 
-## Phase 3: Fix Issues
+## Step 3: Fix Issues
 
 Wait for all four agents to complete. Aggregate their findings, then launch a single agent (with `model: "opus"`) with ALL aggregated findings from all four agents. That agent runs the diff command itself to get the diff, then applies each fix directly, skipping false positives. The fix agent must only edit files — do not stage, build, or test.
 
