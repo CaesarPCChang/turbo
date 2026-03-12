@@ -320,6 +320,7 @@ Each session handles one prompt. This keeps context focused and avoids running o
 | [`/plan-implementation`](skills/plan-implementation/SKILL.md) | Decompose work into sized, ordered implementation units |
 | [`/create-prompt-plan`](skills/create-prompt-plan/SKILL.md) | Break a spec into context-sized implementation prompts |
 | [`/pick-next-prompt`](skills/pick-next-prompt/SKILL.md) | Pick the next prompt from `.turbo/prompts.md` and plan it |
+| [`/capture-context`](skills/capture-context/SKILL.md) | Capture session knowledge into the plan file before clearing context |
 
 ### Code Quality
 
