@@ -17,7 +17,7 @@ At the start, use `TaskCreate` to create a task for each step:
 
 ## Step 1: Code Review
 
-Run the `/code-review` skill to review the feature branch against the base branch.
+Run the `/review-code` skill to review the feature branch against the base branch.
 
 ## Step 2: Confirm Implementation
 

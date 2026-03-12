@@ -60,11 +60,11 @@ graph TD
         end
 
         subgraph p2 ["Phase 2 — Simplify Code"]
-            simplify-plus([/simplify-plus]):::review
+            simplify-code([/simplify-code]):::review
         end
 
         subgraph p3 ["Phase 3 — Code Review"]
-            cr["1. Run /code-review
+            cr["1. Run /review-code
 2. Simplify review fixes
 3. Test and lint"]:::review
         end
@@ -82,24 +82,24 @@ graph TD
 2. /resolve-pr-comments"]:::git
         end
 
-        stage --> simplify-plus
-        simplify-plus --> cr
+        stage --> simplify-code
+        simplify-code --> cr
         cr --> self-improve
         self-improve --> commit-staged
         commit-staged --> pr
     end
 
     %% Simplify (multi-agent review)
-    subgraph simplifyplus ["/simplify-plus — Multi-Agent Review"]
+    subgraph simplifycode ["/simplify-code — Multi-Agent Review"]
         sp-steps["1. Determine diff command
 2. Launch 4 review agents
 3. Fix issues"]:::review
     end
 
-    simplify-plus -. "runs review" .-> sp-steps
+    simplify-code -. "runs review" .-> sp-steps
 
     %% Code review (reusable core)
-    subgraph codereview ["/code-review — Reusable Review Core"]
+    subgraph reviewcode ["/review-code — AI Review + Evaluation"]
         cr-peer([/peer-review]):::review -. "runs review" .-> codex([/codex]):::review --> cr-eval([/evaluate-findings]):::review
     end
 
@@ -148,8 +148,8 @@ graph TD
 
     style planning fill:#f0fdf4,stroke:#22c55e,color:#14532d
     style finalize fill:#f8fafc,stroke:#3b82f6,color:#1e3a5f
-    style simplifyplus fill:#eff6ff,stroke:#3b82f6,color:#1e3a5f
-    style codereview fill:#eff6ff,stroke:#3b82f6,color:#1e3a5f
+    style simplifycode fill:#eff6ff,stroke:#3b82f6,color:#1e3a5f
+    style reviewcode fill:#eff6ff,stroke:#3b82f6,color:#1e3a5f
     style evalfindings fill:#eff6ff,stroke:#3b82f6,color:#1e3a5f
     style debugging fill:#fff7ed,stroke:#f97316,color:#7c2d12
     style knowledge fill:#faf5ff,stroke:#a855f7,color:#581c87
@@ -196,7 +196,7 @@ See [SETUP.md](SETUP.md) for the full guide, or follow the steps below.
 npx skills add tobihagemann/turbo --skill '*' --agent claude-code -g
 ```
 
-Install all skills. Many depend on each other (e.g., `/finalize` orchestrates `/simplify-plus`, `/peer-review`, `/evaluate-findings`, and more), so installing them individually will leave gaps in the workflows. See [skills.sh/docs](https://skills.sh/docs) for more on the skills CLI.
+Install all skills. Many depend on each other (e.g., `/finalize` orchestrates `/simplify-code`, `/peer-review`, `/evaluate-findings`, and more), so installing them individually will leave gaps in the workflows. See [skills.sh/docs](https://skills.sh/docs) for more on the skills CLI.
 
 #### 2. Add `.turbo` to Global Gitignore
 
@@ -325,8 +325,8 @@ Each session handles one prompt. This keeps context focused and avoids running o
 | Skill | What it does |
 |---|---|
 | [`/code-style`](skills/code-style/SKILL.md) | Enforce mirror, reuse, and symmetry principles |
-| [`/simplify-plus`](skills/simplify-plus/SKILL.md) | Multi-agent review for reuse, quality, efficiency, clarity |
-| [`/code-review`](skills/code-review/SKILL.md) | AI code review + findings evaluation (reusable core) |
+| [`/simplify-code`](skills/simplify-code/SKILL.md) | Multi-agent review for reuse, quality, efficiency, clarity |
+| [`/review-code`](skills/review-code/SKILL.md) | AI code review + findings evaluation |
 | [`/peer-review`](skills/peer-review/SKILL.md) | AI code review interface that delegates to `/codex` by default |
 | [`/codex`](skills/codex/SKILL.md) | AI code review and task execution via codex CLI |
 | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) | Confidence-based triage of review feedback |

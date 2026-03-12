@@ -48,17 +48,17 @@ If tests are needed:
 
 ## Phase 2: Simplify Code
 
-Run the `/simplify-plus` skill. The diff command for this phase is `git diff --cached`.
+Run the `/simplify-code` skill. The diff command for this phase is `git diff --cached`.
 
 ## Phase 3: Code Review
 
 ### Step 1: Run code review
 
-Run the `/code-review` skill to review uncommitted changes. Apply any actionable findings — launch a single opus agent with the full diff to apply each fix.
+Run the `/review-code` skill to review uncommitted changes. Apply any actionable findings — launch a single opus agent with the full diff to apply each fix.
 
 ### Step 2: Simplify review fixes
 
-Run the `/simplify-plus` skill. The diff command for this phase is `git diff` (NOT `git diff --cached` — the fix agent's changes are unstaged).
+Run the `/simplify-code` skill. The diff command for this phase is `git diff` (NOT `git diff --cached` — the fix agent's changes are unstaged).
 
 ### Step 3: Test and lint
 

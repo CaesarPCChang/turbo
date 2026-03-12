@@ -1,11 +1,11 @@
 ---
-name: code-review
+name: review-code
 description: Run AI code review and evaluate findings. Delegates to `/peer-review` for the review and `/evaluate-findings` for triage. Use when the user asks to "review code", "code review", "review my changes", or wants a reviewed and evaluated set of findings.
 ---
 
-# Code Review
+# Review Code
 
-Run AI code review and evaluate findings. This is the reusable review core used by orchestrators like `/review-feature-branch` and `/review-pr`.
+Run AI code review and evaluate findings.
 
 ## Step 1: Peer Review
 

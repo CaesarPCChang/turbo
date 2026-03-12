@@ -17,9 +17,9 @@ At the start, use `TaskCreate` to create a task for each step:
 
 ## Step 1: Code Review and PR Comments
 
-Run the `/code-review` skill to review the feature branch against the base branch. Pass any PR comments as additional findings.
+Run the `/review-code` skill to review the feature branch against the base branch. Pass any PR comments as additional findings.
 
-Fetch PR comments by running the `/fetch-pr-comments` skill. Include the unresolved comments as additional findings for the `/code-review` evaluation step.
+Fetch PR comments by running the `/fetch-pr-comments` skill. Include the unresolved comments as additional findings for the `/review-code` evaluation step.
 
 ## Step 2: Confirm Implementation
 
