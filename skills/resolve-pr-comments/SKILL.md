@@ -53,6 +53,8 @@ Use `AskUserQuestion` to ask if the user has already pushed. Wait for confirmati
 
 ## Step 6: Reply to Each Thread
 
+Run `/github-voice` to load writing style rules before composing replies. Keep replies to one or two sentences. Avoid bullet-point reasoning or bolded labels.
+
 Reply to every processed thread using:
 
 ```bash
@@ -72,8 +74,6 @@ Fixed in <commit-sha>.
 Only add a brief description after the SHA if the fix meaningfully diverges from what the reviewer suggested. Otherwise, the commit SHA alone is enough.
 
 **Reply format for skips:** Just state the reasoning for not changing it.
-
-Keep replies to one or two sentences. Do not over-explain. Do not use em dashes. Write in a natural, human tone. Avoid stiff/formal phrasing, bullet-point reasoning, or bolded labels.
 
 ## Step 7: Summary
 

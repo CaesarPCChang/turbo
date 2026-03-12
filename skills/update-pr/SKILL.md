@@ -51,6 +51,8 @@ Derive the PR description from the full diff, not from individual commits. The d
 
 ## Step 5: Draft Updated Title and Description
 
+Run `/github-voice` to load writing style rules before drafting.
+
 Write an updated title and body that:
 
 - **Matches the original style** — same structure, tone, formatting, and level of detail

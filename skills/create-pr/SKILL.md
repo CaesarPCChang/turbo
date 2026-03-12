@@ -13,6 +13,8 @@ If git is in a feature branch, examine all commit messages and the full diff to 
 
 ## Step 2: Draft Title and Description
 
+Run `/github-voice` to load writing style rules before drafting.
+
 Draft a title and description, embedding any diagrams in the body. Output the drafted title and description as chat text so the user can review it.
 
 ## Step 3: Confirm and Create
