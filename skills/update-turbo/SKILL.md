@@ -1,60 +1,132 @@
 ---
 name: update-turbo
-description: Update installed Turbo skills to the latest version with conflict detection and exclusion support. Use when the user asks to "update turbo", "update turbo skills", "reinstall turbo", or "upgrade turbo".
+description: Update installed Turbo skills with a dynamic changelog, conflict resolution for customized skills, and guided user experience. Use when the user asks to "update turbo", "update turbo skills", "reinstall turbo", or "upgrade turbo".
 ---
 
 # Update Turbo
 
-Update installed Turbo skills to the latest version, respecting excluded skills and detecting conflicts.
+Update installed Turbo skills with a dynamic changelog and interactive conflict resolution.
 
-## Step 1: Read Config
+## Step 1: Gather State
 
-Read `~/.turbo/config.json` if it exists. Check for an `excludeSkills` array:
+Read two data sources:
 
-```json
-{
-  "excludeSkills": ["codex", "oracle"]
-}
-```
+1. **Config** — `~/.turbo/config.json` for `excludeSkills` (default: `[]`) and `lastCommit` (the commit hash from the last update)
+2. **Lock file** — `~/.claude/skills/skills-lock.json` for installed Turbo skills (entries with `"source": "tobihagemann/turbo"`). Extract skill names.
 
-## Step 2: Detect Conflicts
-
-Fetch the list of Turbo skills and check for non-symlinked skills that would be overwritten. Skip skills already in `excludeSkills`:
+Fetch upstream state:
 
 ```bash
-for skill in $(gh api repos/tobihagemann/turbo/contents/skills --jq '.[].name'); do
-  # skip if already excluded
-  target="$HOME/.claude/skills/$skill"
-  if [ -e "$target" ] && [ ! -L "$target" ]; then
-    echo "CONFLICT: $target exists and is not a symlink"
-  fi
-done
-```
+# Latest commit on main
+gh api repos/tobihagemann/turbo/commits/main --jq '.sha'
 
-If conflicts are found, use `AskUserQuestion` to alert the user. For each conflicting skill, offer two options:
-1. **Overwrite** — proceed with installation
-2. **Exclude** — add the skill to `excludeSkills` in `~/.turbo/config.json` and skip it
-
-Create `~/.turbo/config.json` if it doesn't exist. Merge the `excludeSkills` key into existing config.
-
-## Step 3: Install
-
-First, fetch the current Turbo skill list from the repo:
-
-```bash
+# Current skill list
 gh api repos/tobihagemann/turbo/contents/skills --jq '.[].name'
 ```
 
-Compare against the currently installed Turbo skills (from the lock file or symlinks identified in Step 2's conflict check). If there are **no new or removed skills** and **no exclusions**, use the fast path:
+If the latest commit matches `lastCommit`, report that Turbo is already up to date and stop.
+
+## Step 2: Build Changelog
+
+Compare the installed skill list (from lock file) against the upstream skill list to detect added and removed skills.
+
+If `lastCommit` exists, fetch the diff to detect renames and modifications:
 
 ```bash
-npx skills update -y
+gh api "repos/tobihagemann/turbo/compare/<lastCommit>...<latest>"
 ```
 
-Otherwise (new skills to add, skills removed, or exclusions apply), use the full install. If there are excluded skills (from config or user choice), build a specific skill list:
+From the response, filter `files` to entries where `filename` starts with `skills/`. Each file has `filename`, `status` (`added`, `removed`, `modified`, `renamed`), and `previous_filename` (for renames). Group by skill name.
+
+For each modified or renamed skill, fetch both versions of the SKILL.md and diff the actual content:
 
 ```bash
-npx skills add tobihagemann/turbo --skill 'skill1' --skill 'skill2' ... --agent claude-code -y -g
+# Old version (at baseline commit)
+gh api "repos/tobihagemann/turbo/contents/skills/<name>/SKILL.md?ref=<lastCommit>" --jq '.content' | base64 -d
+
+# New version (at latest commit)
+gh api "repos/tobihagemann/turbo/contents/skills/<name>/SKILL.md?ref=<latest>" --jq '.content' | base64 -d
+```
+
+Read both versions and write a concise, plain-language summary of what changed. Focus on what the change means for the user: new capabilities, changed behavior, renamed commands, removed features. Flag anything that could be a breaking change (renamed skills that other skills reference, removed steps, changed interfaces).
+
+For added skills, fetch their SKILL.md and summarize what they do.
+
+## Step 3: Present Changelog
+
+Use `AskUserQuestion` to present a formatted changelog. Example format:
+
+```
+Turbo Update Available
+
+Added:
+- /new-skill — Brief description of what it does
+
+Removed:
+- /old-skill
+
+Renamed:
+- /old-name → /new-name
+
+Modified:
+- /skill-a — Now launches 4 review agents instead of 3, adds clarity review
+- /skill-b — Delegates to /review-code instead of running review inline
+
+⚠ Breaking: /old-name renamed to /new-name — update any custom workflows
+
+Proceed with update?
+```
+
+If the user declines, stop.
+
+## Step 4: Resolve Conflicts
+
+For each **modified** or **renamed** skill, check for local customizations by comparing the installed SKILL.md content against the upstream version at `lastCommit`. Fetch the old upstream version:
+
+```bash
+gh api "repos/tobihagemann/turbo/contents/skills/<name>/SKILL.md?ref=<lastCommit>" --jq '.content' | base64 -d
+```
+
+Read the installed file at `~/.claude/skills/<name>/SKILL.md` and compare. If they differ, the user has customized this skill.
+
+For each customized skill with upstream changes, use `AskUserQuestion`:
+
+```
+/skill-name has upstream changes, but you've customized your local copy.
+
+What changed upstream:
+- Now uses /review-code instead of running peer review inline
+- Added a new "Simplify review fixes" sub-step
+
+Options:
+1. Merge — apply upstream changes while preserving your customizations
+2. Overwrite — replace with upstream version (customizations will be lost)
+3. Skip — keep your version unchanged
+4. Exclude — skip and exclude from future updates
+```
+
+Before proceeding to the next step, save the content of any customized skill where the user chose "Merge" (read the file now, before install overwrites it).
+
+## Step 5: Execute Update
+
+### Handle removals and renames
+
+For each removed or renamed-away skill, try removing via the CLI:
+
+```bash
+npx skills remove <name> -g -y
+```
+
+If the skill is already gone from disk but still in the lock file, the CLI won't find it. In that case, read `~/.claude/skills/skills-lock.json`, delete the stale key from the `skills` object, and write the file back.
+
+### Install
+
+Build the exclusion list from `excludeSkills` config + skills the user chose to skip or exclude.
+
+If exclusions exist, install specific skills:
+
+```bash
+npx skills add tobihagemann/turbo --skill '<name1>' --skill '<name2>' ... --agent claude-code -y -g
 ```
 
 If no exclusions, install all:
@@ -63,33 +135,19 @@ If no exclusions, install all:
 npx skills add tobihagemann/turbo --skill '*' --agent claude-code -y -g
 ```
 
-## Step 4: Clean Up Removed Skills
+### Merge customized skills
 
-After installing, detect skills that were previously installed from Turbo but are no longer in the current release. Use two data sources to identify Turbo-owned skills:
+For each skill where the user chose "Merge":
 
-1. **`skills-lock.json`** (primary) — check `~/.claude/skills/skills-lock.json` for entries with `"source": "tobihagemann/turbo"`. Extract the skill names.
-2. **Symlink check** (fallback) — if no lock file, check `~/.claude/skills/*` for symlinks pointing to `../../.agents/skills/`. These are CLI-managed globals.
+1. The install step overwrote the file. Read the new upstream version (now installed at `~/.claude/skills/<name>/SKILL.md`).
+2. Launch an agent with the user's saved customized version and the new upstream version. Instruct it to preserve the user's customizations while incorporating the upstream changes. The agent writes the merged result to `~/.claude/skills/<name>/SKILL.md`.
 
-Compare against the just-installed skill list. The install output lists all skills it installed — use that list. Alternatively, fetch from the repo:
+### Update permissions
 
-```bash
-gh api repos/tobihagemann/turbo/contents/skills --jq '.[].name'
-```
+If skills were added or renamed, use `AskUserQuestion` to offer updating `permissions.allow` in `~/.claude/settings.json`. Show the entries to add or remove. If the user confirms, read the settings file, update the array, and write it back.
 
-If `gh api` fails (TLS errors, rate limits), fall back to checking which symlinks in `~/.claude/skills/` are now broken:
+## Step 6: Save State
 
-```bash
-for skill in ~/.claude/skills/*; do
-  [ -L "$skill" ] || continue
-  [ -e "$skill" ] && continue  # symlink target exists, skip
-  echo "STALE: $(basename "$skill")"
-done
-```
+Read `~/.turbo/config.json` (or start with `{}`), set `lastCommit` to the latest commit hash, merge any new exclusions into `excludeSkills`, and write it back. Create `~/.turbo/` if needed.
 
-For each stale skill found, inform the user via `AskUserQuestion` and remove:
-
-```bash
-npx skills remove <skill-name> -g -y
-```
-
-Also remove the stale entry from `~/.claude/skills/skills-lock.json` if present (delete the key from the `skills` object).
+Report a summary of what was updated.
