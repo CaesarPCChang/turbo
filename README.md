@@ -2,6 +2,14 @@
 
 A modular collection of [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skills that speed up everyday dev tasks while keeping quality high. Heavily optimized and battle-tested with Claude Code and the Opus model.
 
+**TL;DR** — Three steps to ship:
+
+1. **Plan** — Enter plan mode and describe what you want to build
+2. **Implement** — Build it with Claude
+3. **Run `/finalize`** — Tests, code simplification, AI review, commit, and PR. One command.
+
+Everything else in Turbo builds on this loop: planning pipelines for large projects, debugging tools for when things break, and self-improvement that makes each session teach the next. There are 30+ skills beyond `/finalize`. Read on for the full picture.
+
 ## What Is This?
 
 Turbo is a skill set for Claude Code. Each skill teaches Claude a specific workflow: reviewing code, creating PRs, investigating bugs, self-improving from session learnings, and more. The skills are designed to [work together](#how-skills-connect).
