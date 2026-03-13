@@ -27,7 +27,12 @@ Find the first `pending` prompt whose dependencies are all `done`.
 
 ## Step 3: Adapt the Prompt
 
-Re-read the spec and compare against the current project state. Run the `/plan-implementation` skill and apply its Adaptation section to adjust the prompt if implementation has diverged.
+Re-read the spec and compare against the current project state. Adjust the prompt if implementation has diverged:
+
+- **File paths changed** — update references to match actual structure
+- **Architecture evolved** — adjust the prompt to work with what was actually built
+- **Scope shifted** — add or remove items based on what prior work produced
+- **New information** — incorporate discoveries from previous sessions
 
 Update `.turbo/prompts.md` with adjustments to the selected prompt. For affected future prompts, update their Context and Depends-on fields if the adaptation changes what they can assume.
 
@@ -42,11 +47,12 @@ Identify currently available skills from the skill list in the system prompt. De
 
 ## Step 5: Plan the Implementation
 
-This is the core of the skill. Using the selected prompt as the requirements, run the `/plan-implementation` skill and apply its "Planning Each Unit" section.
+This is the core of the skill. Using the selected prompt as the requirements, explore the codebase, design the implementation, and write a detailed plan (exact file paths, function signatures, data flow, test cases).
 
-Additionally, the plan's final step must instruct: "Mark prompt N as `done` in `.turbo/prompts.md`."
+After writing the plan:
 
-The plan is the deliverable. After the user approves it, they clear context and execute in a clean session. The skills line ensures the implementation session loads the right context.
+1. Run the `/enhance-plan` skill to add task tracking, a skills line, and a finalize step.
+2. The plan's final step must instruct: "Mark prompt N as `done` in `.turbo/prompts.md`."
 
 ## Rules
 

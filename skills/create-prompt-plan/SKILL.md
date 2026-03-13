@@ -21,7 +21,27 @@ Identify:
 
 ## Step 2: Decompose Into Prompts
 
-Split the spec into prompts where each prompt fits a single Claude Code context session. Run the `/plan-implementation` skill and apply its Decomposition section (Sizing and Ordering), treating each "unit" as a prompt.
+Split the spec into prompts where each prompt fits a single Claude Code context session.
+
+### Sizing
+
+- One prompt = one logical unit of work (a feature, a subsystem, a layer)
+- Never split tightly-coupled pieces across prompts (if UI + API + tests are inseparable, keep them together)
+- Split independent subsystems into separate prompts
+- If a prompt would touch more than ~15-20 files or span 3+ unrelated subsystems, split further
+- If the entire scope fits one session, produce a single prompt
+- Each prompt must leave the codebase fully integrated, with no components unreachable from the project's entry points
+
+### Ordering
+
+Order by dependency, foundational work before dependent work:
+
+1. Setup and scaffolding (project init, config, CI)
+2. Data and domain layer (models, schemas, types)
+3. Core business logic
+4. API and service layer
+5. UI and frontend
+6. Integration and end-to-end concerns
 
 ### Status tracking
 

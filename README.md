@@ -53,10 +53,9 @@ graph TD
         direction TB
         create-spec([/create-spec]):::plan --> create-prompt-plan([/create-prompt-plan]):::plan
         create-prompt-plan --> pick-next-prompt([/pick-next-prompt]):::plan
-        pick-next-prompt --> plan-implementation([/plan-implementation]):::plan
     end
 
-    plan-implementation -- "implement, then..." --> stage
+    pick-next-prompt -- "implement, then..." --> stage
 
     %% Finalize phases
     subgraph finalize ["/finalize — QA Orchestrator"]
@@ -291,9 +290,9 @@ After plan approval (ExitPlanMode) and before making edits:
 4. Read similar files in the project to mirror their style
 ```
 
-#### 8. Disable Auto-Compact
+#### 8. Disable Auto-Compact (Optional)
 
-Turbo's orchestrator workflows work best when you control compaction timing. Disable auto-compact in Claude Code via `/config`.
+With the 1M context window, compaction is rarely needed. If you prefer to control compaction timing, disable auto-compact in Claude Code via `/config`.
 
 #### 9. Oracle Setup (Optional)
 
@@ -304,7 +303,7 @@ The `/oracle` skill requires additional setup (Chrome, Python, ChatGPT access). 
 The recommended way to use Turbo:
 
 1. **Enter plan mode** and plan the implementation
-2. **Approve the plan** (tip: clear context when approving to maximize room for implementation)
+2. **Approve the plan** (optionally clear context if planning used significant context)
 3. **Run `/finalize`** when you're done implementing
 
 `/finalize` runs through these phases automatically:
@@ -317,10 +316,10 @@ The recommended way to use Turbo:
 
 ### Context Management Tips
 
-- **Disable auto-compact.** You want to control when compaction happens.
+With the 1M context window, running out of context during `/finalize` is unlikely for most sessions. If you do hit the limit on very long sessions:
+
 - **Run `/self-improve` before `/compact`.** Compaction loses conversational detail that `/self-improve` mines for lessons. Capture learnings first, then compact.
-- **Keep >50% context free** before running `/finalize` (>40% may also work). If you're low, run `/self-improve`, then `/compact`.
-- The status line from step 3 above makes this easy to track.
+- The status line from step 6 above makes remaining context easy to track.
 
 ### Self-Improvement
 
@@ -336,11 +335,11 @@ For larger projects, Turbo offers a full spec-to-implementation pipeline. You ca
 2. **Run `/create-prompt-plan`** — Breaks the spec into context-sized prompts at `.turbo/prompts.md`
 3. **For each prompt, open a new session:**
    1. Enter plan mode and run `/pick-next-prompt`
-   2. Approve the plan (clear context to maximize room for implementation)
+   2. Approve the plan (optionally clear context if planning used significant context)
    3. Implement the changes
-   4. `/compact` if needed, then `/finalize`
+   4. Run `/finalize`
 
-Each session handles one prompt. This keeps context focused and avoids running out mid-implementation.
+Each session handles one prompt to keep context focused.
 
 ## All Skills
 
@@ -357,9 +356,9 @@ Each session handles one prompt. This keeps context focused and avoids running o
 | Skill | What it does |
 |---|---|
 | [`/create-spec`](skills/create-spec/SKILL.md) | Guided discussion that produces a spec at `.turbo/spec.md` |
-| [`/plan-implementation`](skills/plan-implementation/SKILL.md) | Decompose work into sized, ordered implementation units |
 | [`/create-prompt-plan`](skills/create-prompt-plan/SKILL.md) | Break a spec into context-sized implementation prompts |
 | [`/pick-next-prompt`](skills/pick-next-prompt/SKILL.md) | Pick the next prompt from `.turbo/prompts.md` and plan it |
+| [`/enhance-plan`](skills/enhance-plan/SKILL.md) | Add task tracking, a skills line, and a finalize step to a plan |
 | [`/capture-context`](skills/capture-context/SKILL.md) | Capture session knowledge into the plan file before clearing context |
 
 ### Code Quality

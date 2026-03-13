@@ -12,7 +12,7 @@ At the start, use `TaskCreate` to create a task for each step:
 4. Install prerequisites
 5. Configure context tracking
 6. Add pre-implementation prep
-7. Disable auto-compact
+7. Disable auto-compact (optional)
 8. Oracle setup
 9. Quick onboarding
 
@@ -196,13 +196,9 @@ After plan approval (ExitPlanMode) and before making edits:
 
 This ensures code style is read and mirrored before making changes.
 
-## Step 7: Disable Auto-Compact
+## Step 7: Disable Auto-Compact (Optional)
 
-Turbo's orchestrator workflows work best when compaction timing is controlled manually. Disable auto-compact in Claude Code via `/config`.
-
-Then manage compaction manually:
-1. Check the context percentage in the status line
-2. If below 50%, run `/compact` before starting `/finalize`
+With the 1M context window, compaction is rarely needed. If you prefer to control compaction timing, disable auto-compact in Claude Code via `/config`.
 
 ## Step 8: Oracle Setup
 
