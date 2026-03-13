@@ -28,11 +28,11 @@ If the symlink points into `~/.agents/skills/`, offer to migrate:
 
 1. Ask the user: consume only (clone), contribute (fork), or maintain (source)?
 2. Clone the repo to `~/.turbo/repo/` (see SETUP.md Step 1a for the exact commands per mode)
-3. For each Turbo skill in `~/.agents/.skill-lock.json` (where `source` is `tobihagemann/turbo`):
+3. For each Turbo skill (where `~/.claude/skills/<name>` is a symlink into `~/.agents/skills/` and has a matching directory in `~/.turbo/repo/skills/`):
    - Read the installed file at `~/.claude/skills/<name>/SKILL.md` (resolve symlink first)
    - Read the upstream version at `~/.turbo/repo/skills/<name>/SKILL.md`
    - Note whether the user has customized this skill (contents differ)
-4. Remove old installations: `npx skills remove <name>` for each Turbo skill
+4. Remove old installations: `npx skills remove -g -y <name>` for each Turbo skill
 5. Copy skills from the repo. For customized skills, copy the user's version instead
 6. Initialize `~/.turbo/config.json` with `repoMode`, `excludeSkills: []`, and `lastUpdateHead` set to `git -C ~/.turbo/repo rev-parse HEAD`
 7. Report migration complete and stop

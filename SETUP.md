@@ -102,7 +102,7 @@ If the user has an existing installation via `npx skills` (symlinks in `~/.claud
    - Read the installed file (resolve the symlink)
    - Compare against `~/.turbo/repo/skills/<name>/SKILL.md`
    - Note whether the user has customized this skill (contents differ)
-3. Remove old installations: `npx skills remove <name>` for each Turbo skill
+3. Remove old installations: `npx skills remove -g -y <name>` for each Turbo skill
 4. Copy skills from the repo. For customized skills, copy the user's version instead
 5. Initialize `~/.turbo/config.json` as above
 
