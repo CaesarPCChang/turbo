@@ -49,7 +49,7 @@ Identify currently available skills from the skill list in the system prompt. De
 
 This is the core of the skill. Using the selected prompt as the requirements, explore the codebase, design the implementation, and write a detailed plan (exact file paths, function signatures, data flow, test cases).
 
-After writing the plan:
+## Step 6: Enhance the Plan
 
 1. Run the `/enhance-plan` skill to add task tracking, a skills line, and a finalize step.
 2. The plan's final step must instruct: "Mark prompt N as `done` in `.turbo/prompts.md`."
