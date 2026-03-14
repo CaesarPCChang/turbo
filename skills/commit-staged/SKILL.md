@@ -1,6 +1,6 @@
 ---
 name: commit-staged
-description: Commit already-staged changes with a message matching existing commit style. Use when the user asks to "commit staged changes", "commit what's staged", "commit these changes", "commit my changes", or "make a commit".
+description: Commit already-staged changes with a message matching existing commit style. Use when the user asks to "commit staged changes" or "commit what's staged".
 ---
 
 # Commit Staged Changes

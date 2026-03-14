@@ -40,18 +40,14 @@ Run the `/evaluate-findings` skill on the unresolved threads to assess each comm
 
 Run the `/self-improve` skill.
 
-## Step 4: Stage and Commit
+## Step 4: Stage, Commit, and Push
 
-If any fixes were applied, use `AskUserQuestion` to ask if the user wants to stage and commit the changes now.
+If any fixes were applied, use `AskUserQuestion` to ask if the user wants to stage, commit, and push the changes now.
 
-- **Yes** — run the `/stage-commit` skill
+- **Yes** — run the `/stage-commit-push` skill
 - **No** — leave changes unstaged, proceed to replies
 
-## Step 5: Wait for Push
-
-Use `AskUserQuestion` to ask if the user has already pushed. Wait for confirmation before proceeding to replies.
-
-## Step 6: Reply to Each Thread
+## Step 5: Reply to Each Thread
 
 Run `/github-voice` to load writing style rules before composing replies. Keep replies to one or two sentences. Avoid bullet-point reasoning or bolded labels.
 
@@ -75,7 +71,7 @@ Only add a brief description after the SHA if the fix meaningfully diverges from
 
 **Reply format for skips:** Just state the reasoning for not changing it.
 
-## Step 7: Summary
+## Step 6: Summary
 
 After processing all threads, present a summary table:
 

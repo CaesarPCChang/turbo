@@ -366,9 +366,9 @@ Each session handles one prompt to keep context focused.
 | Skill | What it does |
 |---|---|
 | [`/code-style`](skills/code-style/SKILL.md) | Enforce mirror, reuse, and symmetry principles |
+| [`/write-tests`](skills/write-tests/SKILL.md) | Write missing tests matching project conventions |
 | [`/simplify-code`](skills/simplify-code/SKILL.md) | Multi-agent review for reuse, quality, efficiency, clarity |
 | [`/review-code`](skills/review-code/SKILL.md) | AI code review, apply fixes, simplify, and verify |
-| [`/write-tests`](skills/write-tests/SKILL.md) | Write missing tests for changed code |
 | [`/peer-review`](skills/peer-review/SKILL.md) | AI code review interface that delegates to `/codex` by default |
 | [`/codex`](skills/codex/SKILL.md) | AI code review and task execution via codex CLI |
 | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) | Confidence-based triage of review feedback |
@@ -379,9 +379,11 @@ Each session handles one prompt to keep context focused.
 | Skill | What it does |
 |---|---|
 | [`/stage`](skills/stage/SKILL.md) | Stage implementation changes with precise file selection |
-| [`/commit-rules`](skills/commit-rules/SKILL.md) | Shared commit message rules and technical constraints |
 | [`/stage-commit`](skills/stage-commit/SKILL.md) | Stage files and commit in one step |
+| [`/stage-commit-push`](skills/stage-commit-push/SKILL.md) | Stage, commit, and push in one step |
 | [`/commit-staged`](skills/commit-staged/SKILL.md) | Commit already-staged files with good message |
+| [`/commit-staged-push`](skills/commit-staged-push/SKILL.md) | Commit already-staged files and push |
+| [`/commit-rules`](skills/commit-rules/SKILL.md) | Shared commit message rules and technical constraints |
 | [`/create-pr`](skills/create-pr/SKILL.md) | Draft and create a GitHub PR |
 | [`/update-pr`](skills/update-pr/SKILL.md) | Update existing PR title and description |
 | [`/fetch-pr-comments`](skills/fetch-pr-comments/SKILL.md) | Read-only summary of unresolved PR comments |
