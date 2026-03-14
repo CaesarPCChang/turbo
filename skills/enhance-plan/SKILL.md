@@ -17,7 +17,20 @@ Read the current plan. Identify all steps or units of work. Extract a short labe
 
 ## Step 2: Add Task Tracking
 
-Add a "Task Tracking" section near the top of the plan (after the title, before the first step). The section instructs the implementation session to create a task for each step at the start:
+Add a "Task Tracking" section near the top of the plan (after the title, before the first step).
+
+If the plan has few steps or each step is small (e.g., one edit per file), use a single implementation task:
+
+```markdown
+## Task Tracking
+
+At the start, use `TaskCreate` to create a task for each item:
+
+1. Implement the plan
+2. Run `/finalize` skill
+```
+
+If the plan has substantial, distinct steps, create a task per step:
 
 ```markdown
 ## Task Tracking
@@ -27,10 +40,10 @@ At the start, use `TaskCreate` to create a task for each step:
 1. [Step 1 label]
 2. [Step 2 label]
 3. ...
-N. Finalize
+N. Run `/finalize` skill
 ```
 
-Include "Finalize" as the last task.
+Always include "Run `/finalize` skill" as the last task.
 
 ## Step 3: Add Skills Line
 
@@ -43,9 +56,9 @@ Add an instruction to the plan: "After plan approval and before making edits, ru
 Add a final step to the plan:
 
 ```markdown
-## Step N: Finalize
+## Step N: Run `/finalize` Skill
 
-Run `/finalize` to run tests, simplify code, review, and commit.
+Run the `/finalize` skill to run tests, simplify code, review, and commit.
 ```
 
 ## Rules
