@@ -184,7 +184,7 @@ Claude will clone the repo, copy the skills, configure your environment, and wal
 
 ### Updating
 
-Run `/update-turbo` in Claude Code to update all skills from the local repo. It builds a changelog from local git history, handles conflict detection for customized skills, and manages exclusions.
+Run `/update-turbo` in Claude Code to update all skills. It fetches the latest update instructions from GitHub, builds a changelog, handles conflict detection for customized skills, and manages exclusions.
 
 ### Manual Setup
 
@@ -430,7 +430,7 @@ Each session handles one prompt to keep context focused.
 | [`/implement-improvements`](skills/implement-improvements/SKILL.md) | Validate and implement improvements from the backlog |
 | [`/create-skill`](skills/create-skill/SKILL.md) | Create or update a skill with proper structure |
 | [`/update-deps`](skills/update-deps/SKILL.md) | Smart dependency upgrades with breaking change research |
-| [`/update-turbo`](skills/update-turbo/SKILL.md) | Update Turbo skills from local repo with changelog and conflict detection |
+| [`/update-turbo`](skills/update-turbo/SKILL.md) | Update Turbo skills with always-latest instructions fetched from GitHub |
 | [`/contribute-turbo`](skills/contribute-turbo/SKILL.md) | Submit turbo skill improvements back to upstream |
 
 ## License
