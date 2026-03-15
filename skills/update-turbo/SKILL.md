@@ -1,6 +1,6 @@
 ---
 name: update-turbo
-description: Update installed Turbo skills from the local repo with a dynamic changelog, conflict resolution for customized skills, and guided user experience. Use when the user asks to "update turbo", "update turbo skills", "reinstall turbo", or "upgrade turbo".
+description: "Update installed Turbo skills from the local repo with a dynamic changelog, conflict resolution for customized skills, and guided user experience. Use when the user asks to \"update turbo\", \"update turbo skills\", \"reinstall turbo\", or \"upgrade turbo\"."
 ---
 
 # Update Turbo

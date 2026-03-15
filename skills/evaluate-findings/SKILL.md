@@ -1,6 +1,6 @@
 ---
 name: evaluate-findings
-description: Critically assess external feedback (code reviews, AI reviewers, PR comments) and decide which suggestions to apply using a confidence-based framework with adversarial verification. Use when the user asks to "evaluate findings", "assess review comments", "triage review feedback", "evaluate review output", or "filter false positives".
+description: "Critically assess external feedback (code reviews, AI reviewers, PR comments) and decide which suggestions to apply using a confidence-based framework with adversarial verification. Use when the user asks to \"evaluate findings\", \"assess review comments\", \"triage review feedback\", \"evaluate review output\", or \"filter false positives\"."
 ---
 
 # Evaluate Findings

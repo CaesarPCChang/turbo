@@ -1,6 +1,6 @@
 ---
 name: create-spec
-description: Guide a collaborative discussion that produces a comprehensive specification document at .turbo/spec.md. Use when the user asks to "create a spec", "write a spec", "discuss a project plan", "spec out a project", "design a system", "let's plan this project", "help me scope this", "architect a solution", or "let's discuss before building".
+description: "Guide a collaborative discussion that produces a comprehensive specification document at .turbo/spec.md. Use when the user asks to \"create a spec\", \"write a spec\", \"discuss a project plan\", \"spec out a project\", \"design a system\", \"let's plan this project\", \"help me scope this\", \"architect a solution\", or \"let's discuss before building\"."
 ---
 
 # Create Spec

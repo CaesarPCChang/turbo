@@ -1,6 +1,6 @@
 ---
 name: capture-context
-description: Scan the current session and write a self-contained Session Context section into the plan file, preserving accumulated knowledge before context clearing. Use when the user asks to "capture context", "save context to plan", "add context to plan", "preserve context", "save what we know to the plan", or before approving a plan and clearing context.
+description: "Scan the current session and write a self-contained Session Context section into the plan file, preserving accumulated knowledge before context clearing. Use when the user asks to \"capture context\", \"save context to plan\", \"add context to plan\", \"preserve context\", \"save what we know to the plan\", or before approving a plan and clearing context."
 ---
 
 # Capture Context

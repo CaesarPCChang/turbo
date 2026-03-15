@@ -1,6 +1,6 @@
 ---
 name: smoke-test
-description: Launch the app and hands-on verify that changes work by interacting with it. Use when the user asks to "smoke test", "test it manually", "verify it works", "try it out", "run a smoke test", "check it in the browser", or "does it actually work". Not for unit/integration tests.
+description: "Launch the app and hands-on verify that changes work by interacting with it. Use when the user asks to \"smoke test\", \"test it manually\", \"verify it works\", \"try it out\", \"run a smoke test\", \"check it in the browser\", or \"does it actually work\". Not for unit/integration tests."
 ---
 
 # Smoke Test

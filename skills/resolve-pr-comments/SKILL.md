@@ -1,6 +1,6 @@
 ---
 name: resolve-pr-comments
-description: Evaluate, fix, and reply to GitHub pull request review comments. Use when the user asks to "resolve PR comments", "fix review comments", "address PR feedback", "handle review comments", or "address review feedback".
+description: "Evaluate, fix, and reply to GitHub pull request review comments. Use when the user asks to \"resolve PR comments\", \"fix review comments\", \"address PR feedback\", \"handle review comments\", or \"address review feedback\"."
 ---
 
 # Resolve PR Review Comments

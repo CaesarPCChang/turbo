@@ -1,6 +1,6 @@
 ---
 name: create-pr
-description: Create a GitHub pull request with a drafted title and description. Use when the user asks to "create a PR", "create a pull request", "open a PR", or "submit a PR".
+description: "Create a GitHub pull request with a drafted title and description. Use when the user asks to \"create a PR\", \"create a pull request\", \"open a PR\", or \"submit a PR\"."
 ---
 
 # Create Pull Request

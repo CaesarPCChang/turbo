@@ -1,6 +1,6 @@
 ---
 name: review-code
-description: Run AI code review, evaluate findings, apply fixes, and verify. Launches `/code-review` and `/peer-review` in parallel, then evaluates and applies actionable findings. Use when the user asks to "review code", "code review", "review my changes", "find bugs in my changes", or wants a reviewed and evaluated set of findings.
+description: "Run AI code review, evaluate findings, apply fixes, and verify. Launches `/code-review` and `/peer-review` in parallel, then evaluates and applies actionable findings. Use when the user asks to \"review code\", \"code review\", \"review my changes\", \"find bugs in my changes\", or wants a reviewed and evaluated set of findings."
 ---
 
 # Review Code

@@ -1,6 +1,6 @@
 ---
 name: review-feature-branch
-description: Orchestrate a comprehensive feature branch review with AI code review, findings evaluation, and optional finalization. Use when the user asks to "review feature branch", "review branch against main", "run full review", "check my branch before merging", or "review everything on this branch".
+description: "Orchestrate a comprehensive feature branch review with AI code review, findings evaluation, and optional finalization. Use when the user asks to \"review feature branch\", \"review branch against main\", \"run full review\", \"check my branch before merging\", or \"review everything on this branch\"."
 ---
 
 # Review Feature Branch

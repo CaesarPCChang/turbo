@@ -1,6 +1,6 @@
 ---
 name: write-tests
-description: Write missing tests matching project conventions. Use when the user asks to "write tests", "add tests", "write missing tests", or "add test coverage".
+description: "Write missing tests matching project conventions. Use when the user asks to \"write tests\", \"add tests\", \"write missing tests\", or \"add test coverage\"."
 ---
 
 # Write Tests

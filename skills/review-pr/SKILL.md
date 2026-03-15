@@ -1,6 +1,6 @@
 ---
 name: review-pr
-description: Orchestrate a comprehensive PR review with AI code review, PR comment analysis, findings evaluation, and optional finalization. Use when the user asks to "review PR", "review pull request", "review this PR", "check PR before merging", or "full PR review".
+description: "Orchestrate a comprehensive PR review with AI code review, PR comment analysis, findings evaluation, and optional finalization. Use when the user asks to \"review PR\", \"review pull request\", \"review this PR\", \"check PR before merging\", or \"full PR review\"."
 ---
 
 # Review PR

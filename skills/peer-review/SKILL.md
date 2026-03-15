@@ -1,6 +1,6 @@
 ---
 name: peer-review
-description: Run AI-powered code review of changes by delegating to codex in review mode. Use when the user asks to "review my code", "peer review", "review changes", "review the diff", "review uncommitted changes", or "review against main".
+description: "Run AI-powered code review of changes by delegating to codex in review mode. Use when the user asks to \"review my code\", \"peer review\", \"review changes\", \"review the diff\", \"review uncommitted changes\", or \"review against main\"."
 ---
 
 # Peer Review

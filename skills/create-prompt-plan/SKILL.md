@@ -1,6 +1,6 @@
 ---
 name: create-prompt-plan
-description: Decompose a specification file into context-sized implementation prompts. Use when the user asks to "create a prompt plan", "break spec into prompts", "decompose spec into sessions", "plan prompts for spec", "generate prompts from spec", or "make prompts from spec".
+description: "Decompose a specification file into context-sized implementation prompts. Use when the user asks to \"create a prompt plan\", \"break spec into prompts\", \"decompose spec into sessions\", \"plan prompts for spec\", \"generate prompts from spec\", or \"make prompts from spec\"."
 ---
 
 # Create Prompt Plan

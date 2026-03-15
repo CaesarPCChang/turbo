@@ -1,6 +1,6 @@
 ---
 name: create-skill
-description: Create a new skill or update an existing skill that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations. Use when the user asks to "create a skill", "make a new skill", "build a skill", "scaffold a skill", "write a skill for...", or "new skill that does...".
+description: "Create a new skill or update an existing skill that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations. Use when the user asks to \"create a skill\", \"make a new skill\", \"build a skill\", \"scaffold a skill\", \"write a skill for...\", or \"new skill that does...\"."
 ---
 
 # Create Skill

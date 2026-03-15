@@ -1,6 +1,6 @@
 ---
 name: fetch-pr-comments
-description: Fetch and summarize unresolved GitHub PR review comments without making changes. Use when the user asks to "fetch PR comments", "show PR comments", "check PR for unresolved comments", "list review comments", "what comments are on the PR", "show unresolved threads", or "summarize PR feedback".
+description: "Fetch and summarize unresolved GitHub PR review comments without making changes. Use when the user asks to \"fetch PR comments\", \"show PR comments\", \"check PR for unresolved comments\", \"list review comments\", \"what comments are on the PR\", \"show unresolved threads\", or \"summarize PR feedback\"."
 ---
 
 # Fetch PR Comments

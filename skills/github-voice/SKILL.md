@@ -1,6 +1,6 @@
 ---
 name: github-voice
-description: Shared writing style rules for GitHub-facing output (PR comments, PR descriptions, PR titles). Not typically invoked directly.
+description: "Shared writing style rules for GitHub-facing output (PR comments, PR descriptions, PR titles). Not typically invoked directly."
 ---
 
 # GitHub Voice

@@ -1,6 +1,6 @@
 ---
 name: enhance-plan
-description: Add task tracking, a skills line, and a finalize step to an implementation plan. Use when the user asks to "enhance plan", "add task tracking to plan", "add finalize to plan", "make plan trackable", or "enhance my plan".
+description: "Add task tracking, a skills line, and a finalize step to an implementation plan. Use when the user asks to \"enhance plan\", \"add task tracking to plan\", \"add finalize to plan\", \"make plan trackable\", or \"enhance my plan\"."
 ---
 
 # Enhance Plan

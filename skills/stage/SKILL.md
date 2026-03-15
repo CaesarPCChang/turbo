@@ -1,6 +1,6 @@
 ---
 name: stage
-description: Stage implementation changes for commit with precise file selection. Use when the user asks to "stage changes", "stage files", "add files to staging", or "prepare changes for commit".
+description: "Stage implementation changes for commit with precise file selection. Use when the user asks to \"stage changes\", \"stage files\", \"add files to staging\", or \"prepare changes for commit\"."
 ---
 
 # Stage Changes

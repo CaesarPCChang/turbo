@@ -1,6 +1,6 @@
 ---
 name: simplify-code
-description: Run a multi-agent review of changed files for reuse, quality, efficiency, and clarity issues followed by automated fixes. Use when the user asks to "simplify code", "review changed code", "check for code reuse", "review code quality", "review efficiency", "simplify changes", "clean up code", "refactor changes", or "run simplify".
+description: "Run a multi-agent review of changed files for reuse, quality, efficiency, and clarity issues followed by automated fixes. Use when the user asks to \"simplify code\", \"review changed code\", \"check for code reuse\", \"review code quality\", \"review efficiency\", \"simplify changes\", \"clean up code\", \"refactor changes\", or \"run simplify\"."
 ---
 
 # Simplify Code

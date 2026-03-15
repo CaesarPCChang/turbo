@@ -1,6 +1,6 @@
 ---
 name: pick-next-prompt
-description: Pick the next prompt from .turbo/prompts.md and plan its implementation. Use when the user asks to "pick next prompt", "next prompt", "continue prompt plan", "what's next", "next implementation step", or "continue with the plan".
+description: "Pick the next prompt from .turbo/prompts.md and plan its implementation. Use when the user asks to \"pick next prompt\", \"next prompt\", \"continue prompt plan\", \"what's next\", \"next implementation step\", or \"continue with the plan\"."
 ---
 
 # Pick Next Prompt
