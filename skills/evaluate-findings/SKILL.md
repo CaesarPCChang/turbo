@@ -33,7 +33,7 @@ Spawn when there are **3 or more findings scored Medium or higher** that involve
 
 ### Subagent Instructions
 
-Launch a single subagent using the `Agent` tool (foreground — results are needed before presenting). Provide:
+Launch a single subagent (`model: "opus"`, do not set `run_in_background`). Provide:
 
 1. The challenge-worthy findings with file locations, claims, and initial verdicts
 2. Instructions to challenge each finding — try to prove it wrong, or confirm it with evidence

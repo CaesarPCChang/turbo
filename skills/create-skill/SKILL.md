@@ -69,7 +69,7 @@ Read [references/best-practices.md](references/best-practices.md) for writing st
 
 ## Step 5: Review the Skill
 
-After writing all files, spawn a subagent to review the skill. The subagent should:
+After writing all files, spawn a subagent (`model: "opus"`, do not set `run_in_background`) to review the skill. The subagent should:
 
 1. Read [references/skill-reviewer.md](references/skill-reviewer.md) for review guidelines
 2. Read all skill files (SKILL.md and any bundled resources)

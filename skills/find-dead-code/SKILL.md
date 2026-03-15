@@ -56,7 +56,7 @@ This is the primary analysis. Spawn parallel background subagents to systematica
 
 ### Subagent Strategy
 
-For each top-level source directory identified in Step 1, launch one background subagent (using the Agent tool with `run_in_background: true`). Each subagent receives:
+For each top-level source directory identified in Step 1, launch one subagent (`model: "opus"`, `run_in_background: true`). Each subagent receives:
 
 1. **Its assigned directory** to scan for exported symbols
 2. **The test file patterns** from Step 1

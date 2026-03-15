@@ -72,7 +72,7 @@ For complex problems with 3+ hypotheses and a non-obvious root cause, spawn para
 
 **Skip** when 1-2 hypotheses are obvious (e.g., stack trace points directly to the bug).
 
-Launch in parallel using `run_in_background: true`:
+Launch in parallel (`model: "opus"`, `run_in_background: true`):
 
 1. **One subagent per hypothesis** — each receives the hypothesis, relevant file paths, what evidence to look for, and instructions to report **confirmed** / **refuted** / **inconclusive** with evidence. Budget: max 5 tool calls per subagent.
 2. **Codex exec** (read-only) — run the `/codex` skill in exec mode with a focused prompt describing the problem, reproduction, and files examined. Provides an independent perspective that may spot patterns the hypothesis-driven subagents miss. Run the `/evaluate-findings` skill on its output.

@@ -925,6 +925,21 @@ When a skill needs user input, reference the tool by name (`AskUserQuestion`) in
 - ✗ **Avoid**: "Ask the user which option they prefer."
 - ✓ **Good**: "Use `AskUserQuestion` to determine which option the user prefers."
 
+### Use explicit Agent tool parameters for subagents
+
+When a skill spawns subagents, always specify `model` and `run_in_background` explicitly in a parenthetical. Vague phrasing like "launch concurrently" or "in parallel" causes flaky behavior where Claude sometimes sets `run_in_background: true` and sometimes doesn't.
+
+Multiple foreground Agent tool calls in a single message already run in parallel. `run_in_background: true` is only needed when the main agent should continue working while subagents run (not to achieve parallelism).
+
+Standard format, `model` first:
+- Foreground: `(model: "opus", do not set run_in_background)`
+- Background: `(model: "opus", run_in_background: true)`
+
+- ✗ **Avoid**: "Launch all four agents concurrently in a single message."
+- ✗ **Avoid**: "Spawn a subagent to review the output."
+- ✓ **Good**: "Launch all four agents in a single message (`model: "opus"`, do not set `run_in_background`)."
+- ✓ **Good**: "Launch one subagent per directory (`model: "opus"`, `run_in_background: true`)."
+
 ### Avoid redundant Rules sections
 
 A Rules section should only contain information not already conveyed by the skill body. Before adding a rule, check whether the Process, workflow steps, or tables already encode the same behavior. If they do, the rule is wasted tokens.

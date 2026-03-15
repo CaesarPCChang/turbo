@@ -89,7 +89,7 @@ Reference to spec sections if helpful.]
 
 ## Step 4: Verify with Subagents
 
-After writing, launch three review agents **in parallel** to validate the prompt plan:
+After writing, launch three review agents in a single message (`model: "opus"`, do not set `run_in_background`) to validate the prompt plan:
 
 1. **Dead code / wiring gaps agent** — For each prompt, verify that every module or layer touched is explicitly mentioned. Check that protocol or backend work is always wired to a consumer (UI, CLI, API). Flag any prompt where new capabilities are added without a corresponding integration point — these will produce dead code.
 

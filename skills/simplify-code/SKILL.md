@@ -15,7 +15,7 @@ If there are no git changes, review the most recently modified files that the us
 
 ## Step 2: Launch Four Review Agents in Parallel
 
-Use the Agent tool to launch all four agents concurrently in a single message. Every Agent tool call must set `model: "opus"`. Instruct each agent to run the diff command itself to obtain the diff.
+Use the Agent tool to launch all four agents in a single message (`model: "opus"`, do not set `run_in_background`). Instruct each agent to run the diff command itself to obtain the diff.
 
 ### Agent 1: Code Reuse Review
 

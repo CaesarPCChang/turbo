@@ -23,7 +23,7 @@ The diff target from Step 1 determines what each reviewer analyzes.
 
 ### Review A: Code Review
 
-Launch a **background** agent (`run_in_background: true`, `model: "opus"`) that runs the `/code-review` skill with the diff target from Step 1.
+Launch a background agent (`model: "opus"`, `run_in_background: true`) that runs the `/code-review` skill with the diff target from Step 1.
 
 ### Review B: Peer Review
 
