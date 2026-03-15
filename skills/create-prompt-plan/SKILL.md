@@ -87,17 +87,15 @@ Reference to spec sections if helpful.]
 ```
 ````
 
-## Step 4: Verify with Subagents
+## Step 4: Review Against Spec
 
-After writing, launch three review agents in a single message (`model: "opus"`, do not set `run_in_background`) to validate the prompt plan:
+After writing, spawn a subagent (`model: "opus"`, do not set `run_in_background`) to review the prompt plan against the source spec. The subagent should:
 
-1. **Dead code / wiring gaps agent** — For each prompt, verify that every module or layer touched is explicitly mentioned. Check that protocol or backend work is always wired to a consumer (UI, CLI, API). Flag any prompt where new capabilities are added without a corresponding integration point — these will produce dead code.
+1. Read [references/prompt-plan-reviewer.md](references/prompt-plan-reviewer.md) for review guidelines
+2. Read the prompt plan (`.turbo/prompts.md`) and the source spec in full
+3. Produce a review report following the format in the guidelines
 
-2. **Spec completeness agent** — Cross-check every item in the spec against the prompt plan. Verify each item is assigned to exactly one prompt (no duplicates, no gaps). Confirm intentionally omitted items are documented. Validate the dependency chain is acyclic and correct.
-
-3. **Cross-reference validation agent** — If the prompts reference external resources (other codebases, documentation, APIs, search terms), verify those references are accurate. Check that suggested search terms actually find relevant code, that referenced projects actually implement the feature, and that the most useful reference is called out as primary.
-
-Once all three agents complete, run `/evaluate-findings` on their combined output to triage issues and apply fixes to `.turbo/prompts.md`.
+After the subagent returns its review report, run `/evaluate-findings` on the recommendations to triage issues and apply fixes to `.turbo/prompts.md`.
 
 ## Step 5: Present Summary
 
