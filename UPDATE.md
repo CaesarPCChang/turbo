@@ -170,7 +170,7 @@ Generate the expected entries from the local repo:
 ls ~/.turbo/repo/skills/ | sed 's/.*/"Skill(&)"/'
 ```
 
-Compare against existing `Skill(...)` entries in the settings file. If there are entries to add or remove, use `AskUserQuestion` to show the diff and confirm. If the user confirms, read the settings file, update the array, keep it sorted alphabetically, and write it back. Apply the same permission changes to `settings.backup.json`.
+Compare against existing `Skill(...)` entries in the settings file. If there are entries to add or remove, use `AskUserQuestion` to show the diff and confirm. If the user confirms, read the settings file, update the array, keep it sorted alphabetically, and write it back.
 
 ## Step 6: Save State
 
