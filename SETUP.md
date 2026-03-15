@@ -161,6 +161,26 @@ npm install -g @openai/codex
 
 Verify: `codex --help` should show usage info.
 
+### Companion Skills (Recommended)
+
+The `/smoke-test` skill uses external skills for browser and UI automation. Install them via the skills CLI:
+
+**agent-browser** (highly recommended) — browser automation for web app smoke testing:
+
+```bash
+npx skills add https://github.com/vercel-labs/agent-browser --skill agent-browser --agent claude-code -y -g
+```
+
+**peekaboo** (macOS only) — UI automation for native app smoke testing:
+
+```bash
+npx skills add https://github.com/openclaw/openclaw --skill peekaboo --agent claude-code -y -g
+```
+
+Both are optional. Without them, `/smoke-test` falls back to terminal-based verification.
+
+Add `"Skill(agent-browser)"` and `"Skill(peekaboo)"` to the `permissions.allow` array in `~/.claude/settings.json` (same as Step 3) so `/smoke-test` can invoke them without prompting.
+
 ## Step 5: Configure Context Tracking
 
 Turbo workflows like `/finalize` consume significant context. Knowing how much context is left prevents unexpected compaction mid-workflow.

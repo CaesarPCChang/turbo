@@ -168,13 +168,9 @@ Test & lint"]:::review
 
 ### Prerequisites
 
-| Tool | What it's for | Install |
-|---|---|---|
-| [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | AI coding agent that runs Turbo skills | `npm install -g @anthropic-ai/claude-code` |
-| [GitHub CLI](https://cli.github.com/) | PR creation, review comments, repo queries | `brew install gh` |
-| [Codex CLI](https://github.com/openai/codex) | AI-powered code review in `/finalize` | `npm install -g @openai/codex` |
+Turbo requires [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Works best with Claude Code Max 5x, Max 20x, or Team plan with Premium seats (orchestrator workflows are context-heavy). Additional tools are installed during setup (steps [5](#5-install-prerequisites) and [6](#6-install-companion-skills-recommended)).
 
-**Works best with:** Claude Code Max 5x, Max 20x, or Team plan with Premium seats (orchestrator workflows are context-heavy), ChatGPT Plus or higher (for codex review), and ChatGPT Pro or Business (for `/oracle`, where Pro models are the only ones that reliably solve very hard problems). That said, `/peer-review` and `/oracle` are designed as swappable puzzle pieces, so if you don't have access, replace them with alternatives that work for you.
+**External services:** ChatGPT Plus or higher (for codex review), and ChatGPT Pro or Business (for `/oracle`, where Pro models are the only ones that reliably solve very hard problems). That said, `/peer-review` and `/oracle` are designed as swappable puzzle pieces, so if you don't have access, replace them with alternatives that work for you.
 
 ### Automatic Setup (Recommended)
 
@@ -249,7 +245,33 @@ echo '.turbo/' >> ~/.config/git/ignore
 
 This uses Git's standard XDG path (`$XDG_CONFIG_HOME/git/ignore`), which Git reads automatically without needing `core.excludesfile`. If `core.excludesfile` is already set, add `.turbo/` to that file instead.
 
-#### 5. Allow All Skills
+#### 5. Install Prerequisites
+
+[GitHub CLI](https://cli.github.com/) is used by many skills for PR operations, review comments, and repo queries:
+
+```bash
+brew install gh
+gh auth login
+```
+
+[Codex CLI](https://github.com/openai/codex) is used by `/peer-review` for AI-powered code review during `/finalize`. Requires ChatGPT Plus or higher:
+
+```bash
+npm install -g @openai/codex
+```
+
+#### 6. Install Companion Skills (Recommended)
+
+The `/smoke-test` skill uses external skills for browser and UI automation:
+
+| Skill | What it's for | Install |
+|---|---|---|
+| [agent-browser](https://github.com/vercel-labs/agent-browser) | Browser automation for web app smoke testing (highly recommended) | `npx skills add https://github.com/vercel-labs/agent-browser --skill agent-browser --agent claude-code -y -g` |
+| [peekaboo](https://github.com/openclaw/openclaw) | macOS UI automation for native app smoke testing | `npx skills add https://github.com/openclaw/openclaw --skill peekaboo --agent claude-code -y -g` |
+
+Without these, `/smoke-test` falls back to terminal-based verification.
+
+#### 7. Allow All Skills
 
 Orchestrator workflows like `/finalize` invoke many skills in sequence. Without allowlisting them, you'll get prompted for each one, breaking the flow.
 
@@ -261,7 +283,7 @@ ls ~/.turbo/repo/skills/ | sed 's/.*/"Skill(&)"/'
 
 Merge the output into your existing `permissions.allow` array.
 
-#### 6. Configure Context Tracking
+#### 8. Configure Context Tracking
 
 Turbo workflows like `/finalize` consume significant context. Knowing how much context you have left prevents unexpected compaction mid-workflow.
 
@@ -276,7 +298,7 @@ Add this to `~/.claude/settings.json`:
 }
 ```
 
-#### 7. Add Pre-Implementation Prep
+#### 9. Add Pre-Implementation Prep
 
 Add this to your `~/.claude/CLAUDE.md` (create the file if it doesn't exist):
 
@@ -290,11 +312,11 @@ After plan approval (ExitPlanMode) and before making edits:
 4. Read similar files in the project to mirror their style
 ```
 
-#### 8. Disable Auto-Compact (Optional)
+#### 10. Disable Auto-Compact (Optional)
 
 With the 1M context window, compaction is rarely needed. If you prefer to control compaction timing, disable auto-compact in Claude Code via `/config`.
 
-#### 9. Oracle Setup (Optional)
+#### 11. Oracle Setup (Optional)
 
 The `/oracle` skill requires additional setup (Chrome, Python, ChatGPT access). See the [oracle skill](skills/oracle/SKILL.md) for configuration via `~/.turbo/config.json`. If not set up, everything still works.
 
