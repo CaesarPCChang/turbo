@@ -31,6 +31,8 @@ Split the spec into prompts where each prompt fits a single Claude Code context 
 - If a prompt would touch more than ~15-20 files or span 3+ unrelated subsystems, split further
 - If the entire scope fits one session, produce a single prompt
 - Each prompt must leave the codebase fully integrated, with no components unreachable from the project's entry points
+- If a prompt creates a module, API, or data layer, the same prompt (or an earlier one) must wire it into something that calls it
+- When a prompt builds infrastructure that a later prompt consumes, name the future consumer explicitly in the prompt text so the reviewer can trace the wiring
 
 ### Ordering
 
@@ -42,6 +44,8 @@ Order by dependency, foundational work before dependent work:
 4. API and service layer
 5. UI and frontend
 6. Integration and end-to-end concerns
+
+Mitigate dead code risk in bottom-up ordering by bundling tightly-coupled producer/consumer pairs into the same prompt, or having foundation prompts include a minimal integration point (e.g., a single working endpoint or CLI command) that proves the code is reachable.
 
 ### Status tracking
 
