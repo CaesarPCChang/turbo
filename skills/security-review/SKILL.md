@@ -35,6 +35,10 @@ If no threat model exists, proceed without it. Do not create one.
 2. For each changed file, read enough surrounding context to understand the change
 3. Apply the vulnerability determination criteria and return findings in the output format below
 
+### Review Mindset
+
+Do not treat the existence of a check, sanitizer, or authorization guard as proof of safety. When a defense exists, reason about whether it actually constrains the value or state as intended across the full transformation and execution chain. A regex that validates a URL before decoding does not constrain the decoded URL. A permission check in one handler does not protect a second handler that skips it. Start from what the code is trying to guarantee, then look for ways that guarantee can fail.
+
 ### What to Look For
 
 - **Injection** — SQL, command, template, LDAP, XPath, header injection via unsanitized input
@@ -46,6 +50,8 @@ If no threat model exists, proceed without it. Do not create one.
 - **Deserialization** — untrusted data deserialization without type constraints
 - **Dependency risks** — new dependencies with known CVEs, removed security-related dependencies
 - **Race conditions** — TOCTOU bugs, unprotected shared state in security-critical paths
+- **Transformation chain bypasses** — validation or sanitization that runs before encoding, decoding, normalization, or type coercion, allowing the constrained value to diverge after transformation (validate-then-decode, partial normalization, parsing ambiguities between components)
+- **State and invariant violations** — workflow bypasses where security-critical operations proceed without required preconditions, missing state guards on multi-step processes, assumptions about execution order that concurrent or out-of-order requests can violate
 - **Resource management** — unbounded allocations from attacker-controlled input, missing rate limiting on sensitive endpoints
 
 ## Vulnerability Determination Criteria
@@ -80,7 +86,7 @@ Flag an issue only when ALL of these hold:
 
 - Style and naming unless it creates a security-relevant ambiguity
 - Pre-existing vulnerabilities not affected by this changeset
-- Defense-in-depth suggestions when the primary defense is intact
+- Defense-in-depth suggestions when the primary defense demonstrably holds (not just exists)
 - Vulnerabilities in test code that cannot be reached in production
 
 ## Output Format
