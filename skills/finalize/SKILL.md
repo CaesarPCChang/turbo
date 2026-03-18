@@ -51,6 +51,8 @@ Stage any changes made by the reviewer.
 
 Run the `/self-improve` skill.
 
+Extracts lessons from the current session and routes them to the appropriate knowledge layer: project instructions, auto memory, existing skills, or new skills. Captures insights that would otherwise be lost between sessions.
+
 ## Phase 5: Commit and PR
 
 ### Step 1: Determine Intent
