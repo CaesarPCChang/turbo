@@ -37,7 +37,7 @@ graph TD
         create-prompt-plan --> pick-next-prompt([/pick-next-prompt]):::plan
     end
 
-    pick-next-prompt -- "implement, then..." --> p1-write-tests
+    planning -- "implement, then..." --> finalize
 
     %% Finalize phases
     subgraph finalize ["/finalize — QA Orchestrator"]
@@ -62,9 +62,9 @@ graph TD
 4. /resolve-pr-comments"]:::git
         end
 
-        p1-write-tests --> polish-code
-        polish-code --> self-improve
-        self-improve --> cp
+        p1 --> p2
+        p2 --> p3
+        p3 --> p4
     end
 
     %% Polish code (iterative loop)
@@ -78,7 +78,7 @@ graph TD
         pc-lint -. "changes? re-run" .-> pc-simplify
     end
 
-    polish-code -. "runs loop" .-> polishcode
+    p2 -. "runs loop" .-> polishcode
 
     %% Simplify (multi-agent review)
     subgraph simplifycode ["/simplify-code"]
@@ -120,7 +120,7 @@ graph TD
         inv-steps -. "stuck after 2 cycles" .-> oracle([/oracle]):::debug
     end
 
-    p1-write-tests -. "test failures" .-> debugging
+    p1 -. "test failures" .-> debugging
     pc-test -. "test failures" .-> debugging
 
     %% Knowledge
@@ -136,7 +136,7 @@ graph TD
         si-steps -. "turbo skill change" .-> contribute-turbo([/contribute-turbo]):::know
     end
 
-    self-improve -. "has learnings" .-> knowledge
+    p3 -. "has learnings" .-> knowledge
 
     classDef plan fill:#dcfce7,stroke:#22c55e,color:#14532d
     classDef review fill:#dbeafe,stroke:#3b82f6,color:#1e3a5f
