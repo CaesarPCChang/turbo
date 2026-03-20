@@ -2,7 +2,9 @@
 
 Update installed Turbo skills from the local repo at `~/.turbo/repo/` with a dynamic changelog and interactive conflict resolution.
 
-## Step 1: Gather State
+## Phase 1: Analysis
+
+### Step 1: Gather State
 
 Read `~/.turbo/config.json` for:
 
@@ -10,8 +12,6 @@ Read `~/.turbo/config.json` for:
 - `excludeSkills` (default: `[]`)
 - `lastUpdateHead` — the commit hash from the last update
 - `configVersion` (default: `0` if missing)
-
-### Fetch Updates
 
 Determine the upstream remote based on `repoMode`:
 
@@ -30,7 +30,7 @@ git -C ~/.turbo/repo rev-parse <remote>/main
 
 If they match, report that Turbo is already up to date and stop.
 
-## Step 2: Run Migrations
+### Step 2: Run Migrations
 
 **Current version: 1**
 
@@ -52,7 +52,7 @@ After all migrations are processed, set `configVersion` to the current version i
 
 If any migration initialized config and reported completion (e.g., a first-time migration that sets up the repo), stop here. The user can run `/update-turbo` again to continue with the normal update flow.
 
-## Step 3: Build Changelog
+### Step 3: Build Changelog
 
 Use local git commands to detect changes since `lastUpdateHead`. Use the upstream remote determined in Step 1.
 
@@ -80,7 +80,7 @@ Read both versions and write a concise, plain-language summary of what changed. 
 
 For added skills, read their new SKILL.md and summarize what they do.
 
-## Step 4: Present Changelog
+### Step 4: Present Changelog
 
 Use `AskUserQuestion` to present a formatted changelog. Example format:
 
@@ -107,14 +107,18 @@ Proceed with update?
 
 If the user declines, stop.
 
-## Step 5: Resolve Conflicts
+## Phase 2: Resolution
+
+### Step 1: Detect Customizations
 
 For each **modified** or **renamed** skill, check for local customizations using a three-way comparison:
 
-1. Read the installed copy at `~/.claude/skills/<name>/SKILL.md`
-2. Read the old upstream version: `git -C ~/.turbo/repo show <lastUpdateHead>:skills/<name>/SKILL.md`
-3. If the installed copy matches the old upstream: no customization, auto-update in Step 6
+1. Read the installed copy at `~/.claude/skills/<name>/SKILL.md` (for renamed skills, use the **old** name since that is what is currently installed)
+2. Read the old upstream version: `git -C ~/.turbo/repo show <lastUpdateHead>:skills/<name>/SKILL.md` (for renamed skills, use the **old** path)
+3. If the installed copy matches the old upstream: no customization, auto-update in Phase 3
 4. If they differ: the user has customized this skill
+
+### Step 2: Resolve Conflicts
 
 For each customized skill with upstream changes, use `AskUserQuestion`:
 
@@ -132,18 +136,20 @@ Options:
 4. Exclude — skip and exclude from future updates
 ```
 
-Before proceeding to the next step, save the content of any customized skill where the user chose "Merge" (read the file now, before the copy step overwrites it).
+### Step 3: Save Customized Content
 
-## Step 6: Execute Update
+Before proceeding to Phase 3, save the content of any customized skill where the user chose "Merge" (read the file now, before the copy step overwrites it).
 
-### Pull
+## Phase 3: Execution
+
+### Step 1: Pull
 
 Pull the latest changes into the local repo:
 
 - Clone or source: `git -C ~/.turbo/repo pull origin main`
 - Fork: `git -C ~/.turbo/repo pull upstream main`, then `git -C ~/.turbo/repo push origin main` to sync the fork
 
-### Copy Skills
+### Step 2: Copy Skills
 
 Build the exclusion list from `excludeSkills` config + skills the user chose to skip or exclude.
 
@@ -154,14 +160,14 @@ For each skill in `~/.turbo/repo/skills/` that is not excluded:
 - **Renamed skills**: Remove old directory, copy new
 - **Modified (no customization)**: Remove old directory, then `cp -r ~/.turbo/repo/skills/<name> ~/.claude/skills/<name>`
 
-### Merge Customized Skills
+### Step 3: Merge Customized Skills
 
 For each skill where the user chose "Merge":
 
 1. The copy step overwrote the file. Read the new upstream version (now installed at `~/.claude/skills/<name>/SKILL.md`).
 2. Launch an agent with the user's saved customized version and the new upstream version. Instruct it to preserve the user's customizations while incorporating the upstream changes. The agent writes the merged result to `~/.claude/skills/<name>/SKILL.md`.
 
-### Update Permissions
+### Step 4: Update Permissions
 
 Reconcile `permissions.allow` in `~/.claude/settings.json` against the full set of installed turbo skills — not just newly added or renamed ones. Previously installed skills may be missing from permissions if an earlier update or manual install skipped this step.
 
@@ -173,8 +179,8 @@ ls ~/.turbo/repo/skills/ | sed 's/.*/"Skill(&)"/'
 
 Compare against existing `Skill(...)` entries in the settings file. If there are entries to add or remove, use `AskUserQuestion` to show the diff and confirm. If the user confirms, read the settings file, update the array, keep it sorted alphabetically, and write it back.
 
-## Step 7: Save State
+### Step 5: Save State
 
-Read `~/.turbo/config.json`, set `lastUpdateHead` to the new HEAD (`git -C ~/.turbo/repo rev-parse HEAD`), set `configVersion` to the current version from Step 2, merge any new exclusions into `excludeSkills`, and write it back.
+Read `~/.turbo/config.json`, set `lastUpdateHead` to the new HEAD (`git -C ~/.turbo/repo rev-parse HEAD`), set `configVersion` to the current version from Phase 1 Step 2, merge any new exclusions into `excludeSkills`, and write it back.
 
 Report a summary of what was updated.
