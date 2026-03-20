@@ -120,9 +120,9 @@ Use `AskUserQuestion` with these options: **Approve all**, **Approve recommended
 
 Apply approved changes in order:
 
-1. **Updates to existing files** — Read the target, find the right section, append or update in place. Match the tone and format already present. For auto memory, follow the memory system conventions from the system prompt.
+1. **Updates to existing files** — Read the target, find the right section, append or update in place. Match the tone and format already present. For auto memory, follow the memory system conventions from the system prompt. For user/project skill updates, run `/create-skill` to apply the changes.
 2. **Updates to turbo skills** — For each lesson routed to a turbo skill:
-   1. Edit the installed copy at `~/.claude/skills/<name>/SKILL.md` (immediate effect for the user).
+   1. Run `/create-skill` to update the installed copy at `~/.claude/skills/<name>/SKILL.md` (immediate effect for the user).
    2. If `repoMode` is `"fork"` or `"source"`: use `AskUserQuestion` to ask "These turbo skill improvements could benefit other users. Run `/contribute-turbo` to submit them?" If yes, apply the same changes to `~/.turbo/repo/skills/<name>/SKILL.md`, stage them (`git -C ~/.turbo/repo add skills/<name>/`), and run `/contribute-turbo`.
 3. **Improvements** — For items routed to project improvements, run `/note-improvement` with the summary, location, and rationale for each.
 4. **New skills** — Run `/create-skill` for each new skill. Provide the trigger conditions and relevant context from the session.
