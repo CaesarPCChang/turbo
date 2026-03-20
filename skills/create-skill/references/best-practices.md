@@ -957,6 +957,31 @@ The Skill tool loads instructions and returns immediately — the actual work (B
 
 A Rules section should only contain information not already conveyed by the skill body. Before adding a rule, check whether the Process, workflow steps, or tables already encode the same behavior. If they do, the rule is wasted tokens.
 
+### Avoid "caller" phrasing
+
+Skills run in a conversational context, not a function-call context. Referring to "the caller" sounds mechanical and is ambiguous — it could mean the user, another skill, or the orchestrating agent. Use passive voice instead.
+
+- ✗ **Avoid**: "If the caller specifies a diff command, use that."
+- ✓ **Good**: "If a specific diff command was provided, use that."
+
+### Use recursive self-invocation for convergence loops
+
+When a skill needs to repeat its workflow until stable (e.g., simplify → review → test → repeat if changed), have the last step re-invoke the skill itself rather than encoding an internal loop. This keeps each step distinct and the flow linear. Use "skipping Step N" to bypass one-time setup steps on re-runs.
+
+```markdown
+## Step 1: Setup (first run only)
+...
+## Step 2: Do work
+...
+## Step 3: Re-run if changed
+
+If any prior step produced changes, run the `/this-skill` skill again, skipping Step 1.
+
+## Rules
+
+- Cap at 3 consecutive runs to prevent runaway loops.
+```
+
 ## Advanced: Skills with executable code
 
 The sections below focus on Skills that include executable scripts.

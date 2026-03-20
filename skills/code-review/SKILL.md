@@ -7,15 +7,9 @@ description: "Analyzes a diff for bugs, security issues, and correctness problem
 
 Analyze code changes for bugs, security issues, and correctness problems. Return structured findings.
 
-## Step 1: Determine the Diff Target
+## Step 1: Determine the Diff
 
-Determine what to review based on context:
-
-- **Uncommitted changes**: `--uncommitted`
-- **Against a base branch**: `--base <branch>`
-- **Specific commit**: `--commit <sha>`
-
-Default to reviewing against the repository's default branch (detect via `gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name'`). If the caller specifies a different target, use that.
+Determine the appropriate diff command (e.g. `git diff --cached`, `git diff main...HEAD`) based on the current git state. If a specific diff command was provided, use that. Otherwise, default to diffing against the repository's default branch (detect via `gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name'`).
 
 ## Step 2: Review Changes
 

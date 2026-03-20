@@ -1,59 +1,38 @@
 ---
 name: finalize
-description: "Run the post-implementation quality assurance workflow including tests, code simplification, review, and commit. Use when the user asks to \"finalize implementation\", \"finalize changes\", \"wrap up implementation\", \"finish up\", \"ready to commit\", \"run QA workflow\", or \"ship it\"."
+description: "Run the post-implementation quality assurance workflow including tests, code polishing, review, and commit. Use when the user asks to \"finalize implementation\", \"finalize changes\", \"wrap up implementation\", \"finish up\", \"ready to commit\", \"run QA workflow\", or \"ship it\"."
 ---
 
 # Finalize Implementation
 
-Post-implementation QA workflow: staging, tests, code simplification, AI review, commit, and self-improvement.
+Post-implementation QA workflow: tests, code polishing, commit, and self-improvement.
 
 ## Task Tracking
 
 At the start, use `TaskCreate` to create a task for each phase:
 
-1. Stage and test
-2. Simplify code
-3. Review code
-4. Self-improve
-5. Commit and PR
+1. Write missing tests
+2. Polish code
+3. Self-improve
+4. Commit and PR
 
-## Phase 1: Stage and Test
+## Phase 1: Write Missing Tests
 
-### Step 1: Stage Implementation Changes
+Run the `/write-tests` skill for the current changes.
 
-Run the `/stage` skill.
+## Phase 2: Polish Code
 
-### Step 2: Write Missing Tests
+Run the `/polish-code` skill.
 
-Run the `/write-tests` skill for staged changes (`git diff --cached`).
+Stages implementation and test files, then iteratively simplifies and reviews code until stable, then runs tests and linters.
 
-### Step 3: Stage Test Files
-
-Stage any new test files created in Step 2.
-
-## Phase 2: Simplify Code
-
-Run the `/simplify-code` skill. The diff command for this phase is `git diff --cached`.
-
-Reviews and fixes code style and structure: reuse opportunities, quality patterns, efficiency, and clarity. Uses multiple Claude agents scanning the diff in parallel. Does not catch correctness or logic bugs.
-
-Stage any changes made by the simplifier.
-
-## Phase 3: Review Code
-
-Run the `/review-code` skill to review uncommitted changes.
-
-Reviews and fixes correctness and logic bugs: missing guards, security issues, incorrect conditions, unhandled edge cases. Uses a different reviewer than Phase 2 and catches different problems. Always run this phase even if Phase 2 found nothing.
-
-Stage any changes made by the reviewer.
-
-## Phase 4: Self-Improve
+## Phase 3: Self-Improve
 
 Run the `/self-improve` skill.
 
 Extracts lessons from the current session and routes them to the appropriate knowledge layer: project instructions, auto memory, existing skills, or new skills. Captures insights that would otherwise be lost between sessions.
 
-## Phase 5: Commit and PR
+## Phase 4: Commit and PR
 
 ### Step 1: Determine Intent
 
@@ -97,4 +76,4 @@ Use `AskUserQuestion` to ask if the user wants to wait for automated reviewers t
 
 - Never stage or commit files containing secrets (`.env`, credentials, API keys). Warn if detected.
 - Do not present diffs to the user — the user reviews diffs in an external git client. Use `git diff` internally as needed.
-- If a non-test step fails (simplifier, review), stop and report the failure. Do not skip ahead.
+- If a non-test step fails (polish, review), stop and report the failure. Do not skip ahead.
