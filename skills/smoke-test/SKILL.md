@@ -1,19 +1,19 @@
 ---
 name: smoke-test
-description: "Launch the app and hands-on verify that changes work by interacting with it. Use when the user asks to \"smoke test\", \"test it manually\", \"verify it works\", \"try it out\", \"run a smoke test\", \"check it in the browser\", or \"does it actually work\". Not for unit/integration tests."
+description: "Launch the app and hands-on verify that it works by interacting with it. Use when the user asks to \"smoke test\", \"test it manually\", \"verify it works\", \"try it out\", \"run a smoke test\", \"check it in the browser\", or \"does it actually work\". Not for unit/integration tests."
 ---
 
 # Smoke Test
 
-Launch the app and hands-on verify that changes work. Not unit/integration tests.
+Launch the app and hands-on verify that it works. Not unit/integration tests.
 
 ## Step 1: Determine Scope
 
-If the user specifies what to test, use that. Otherwise, derive scope from conversation context. Extract:
+Resolve scope using the first match:
 
-- **What changed** — feature, fix, or refactor description
-- **Where it lives** — files, routes, commands, UI screens affected
-- **Expected behavior** — what should be observable when the changes work
+1. **User-specified** — the user says what to test. Use that.
+2. **Conversation context** — prior conversation contains recent work (a feature, fix, or refactor). Extract what changed, where it lives, and expected behavior.
+3. **App-level discovery** — fresh context with no prior work. Examine the project (entry points, routes, commands, README) to identify the app's core user-facing flows. Design tests that verify the app launches and its primary functionality works end-to-end.
 
 ## Step 2: Determine Testing Approach
 
@@ -28,7 +28,7 @@ Examine the project type and available skills/MCP tools to choose the right appr
 
 Design targeted smoke tests based on the scope. Each test should:
 
-1. Exercise the specific feature or fix that was just implemented
+1. Exercise a specific flow from the determined scope
 2. Verify the happy path works end-to-end
 3. Check one obvious edge case if applicable
 
@@ -104,5 +104,5 @@ If any test failed, include the relevant snapshot, screenshot, or output showing
 - Always clean up: close browser sessions, stop dev servers started by this skill.
 - Never modify code. This skill is read-only verification. If a test fails, report the failure — do not attempt to fix it.
 - If the dev server fails to start, report the error and stop.
-- Keep tests focused on the determined scope. Do not regress into full app testing.
+- Keep tests focused on the determined scope.
 - To diagnose failures, run the `/investigate` skill on the smoke test report.
