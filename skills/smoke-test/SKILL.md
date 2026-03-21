@@ -32,7 +32,7 @@ Design targeted smoke tests based on the scope. Each test should:
 2. Verify the happy path works end-to-end
 3. Check one obvious edge case if applicable
 
-Present the test plan to the user with `AskUserQuestion` before executing:
+Output the plan as text:
 
 ```
 Smoke Test Plan:
@@ -44,7 +44,7 @@ Approach: [agent-browser / peekaboo / terminal]
 Dev server command: [command]
 ```
 
-Wait for approval before executing.
+Then use `AskUserQuestion` to ask for approval before executing.
 
 ## Step 4: Execute
 
