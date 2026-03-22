@@ -22,15 +22,11 @@ Run the `/write-tests` skill for the current changes.
 
 ## Phase 2: Polish Code
 
-Run the `/polish-code` skill.
-
-Stages implementation and test files, then iteratively simplifies and reviews code until stable, then runs tests and linters.
+Run the `/polish-code` skill for the staged changes.
 
 ## Phase 3: Self-Improve
 
-Run the `/self-improve` skill.
-
-Extracts lessons from the current session and routes them to the appropriate knowledge layer: project instructions, auto memory, existing skills, or new skills. Captures insights that would otherwise be lost between sessions.
+Run the `/self-improve` skill for the current session.
 
 ## Phase 4: Commit and PR
 
