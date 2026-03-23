@@ -1,6 +1,6 @@
 # Turbo
 
-Turbo is a modular collection of Claude Code skills — each skill teaches Claude a specific dev workflow. Skills connect into larger pipelines via orchestrator skills like `/finalize` and `/review-pr`. See [README.md](README.md) for the full overview and dependency graph.
+Turbo is a modular collection of Claude Code skills — each skill teaches Claude a specific dev workflow. Skills connect into larger pipelines like `/finalize` and `/review-pr`. See [README.md](README.md) for the full overview and dependency graph.
 
 ## Project Structure
 
@@ -17,7 +17,7 @@ Each skill is self-contained. Skills compose other skills to any depth via `/ski
 ## Skill Conventions
 
 - SKILL.md frontmatter has `name` and `description` — description includes trigger phrases
-- Skills should not reference which orchestrators call them (stay self-contained)
+- Skills should not reference which pipelines call them (stay self-contained)
 - Workflow skills should not embed implementation details of delegated skills (downstream CLI commands, tool-specific flags, model coupling in reference materials). The skill interface is the abstraction boundary.
 - Workflow skills use `TaskCreate` for phase tracking
 - Skills communicate through standard interfaces: git staging area, PR state, file conventions at `.turbo/`
