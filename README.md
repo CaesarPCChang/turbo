@@ -156,6 +156,10 @@ Each session handles one prompt to keep context focused.
 | [`/peer-review`](skills/peer-review/SKILL.md) | AI code review via codex | [`/codex`](skills/codex/SKILL.md) |
 | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) | Confidence-based triage of review feedback | |
 | [`/find-dead-code`](skills/find-dead-code/SKILL.md) | Identify unused code via parallel analysis | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/investigate`](skills/investigate/SKILL.md) |
+| [`/investigate`](skills/investigate/SKILL.md) | Systematic root cause analysis for bugs and failures | [`/codex`](skills/codex/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/oracle`](skills/oracle/SKILL.md) |
+| [`/smoke-test`](skills/smoke-test/SKILL.md) | Launch the app and verify changes manually | [`/investigate`](skills/investigate/SKILL.md) |
+| [`/codex`](skills/codex/SKILL.md) | AI code review and task execution via codex CLI | [Codex CLI](https://github.com/openai/codex) |
+| [`/oracle`](skills/oracle/SKILL.md) | Consult ChatGPT when completely stuck (requires setup) | [ChatGPT Pro](https://chatgpt.com/) |
 
 ### Planning
 
@@ -184,20 +188,6 @@ Each session handles one prompt to keep context focused.
 | [`/update-pr`](skills/update-pr/SKILL.md) | Update existing PR title and description | [`/github-voice`](skills/github-voice/SKILL.md) |
 | [`/fetch-pr-comments`](skills/fetch-pr-comments/SKILL.md) | Read-only summary of unresolved PR comments | |
 | [`/resolve-pr-comments`](skills/resolve-pr-comments/SKILL.md) | Evaluate, fix, and reply to PR comments | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/self-improve`](skills/self-improve/SKILL.md), [`/stage-commit-push`](skills/stage-commit-push/SKILL.md), [`/github-voice`](skills/github-voice/SKILL.md) |
-
-### External AI
-
-| Skill | What it does | Uses |
-|---|---|---|
-| [`/codex`](skills/codex/SKILL.md) | AI code review and task execution via codex CLI | [Codex CLI](https://github.com/openai/codex) |
-| [`/oracle`](skills/oracle/SKILL.md) | Consult ChatGPT when completely stuck (requires setup) | [ChatGPT Pro](https://chatgpt.com/) |
-
-### Debugging
-
-| Skill | What it does | Uses |
-|---|---|---|
-| [`/investigate`](skills/investigate/SKILL.md) | Systematic root cause analysis for bugs and failures | [`/codex`](skills/codex/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/oracle`](skills/oracle/SKILL.md) |
-| [`/smoke-test`](skills/smoke-test/SKILL.md) | Launch the app and verify changes manually | [`/investigate`](skills/investigate/SKILL.md) |
 
 ### Knowledge & Maintenance
 
