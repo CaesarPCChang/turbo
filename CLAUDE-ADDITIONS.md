@@ -9,6 +9,10 @@ Each `##` section below maps to a `#` section in `~/.claude/CLAUDE.md`.
 - Always use the Skill tool to invoke skills — never substitute by executing steps from memory, even if the skill was loaded earlier in this conversation, including skills invoked by other skills or by themselves
 - "Already running" only means don't call a skill *in the same turn* where its `<command-name>` tag already appeared
 
+## Pre-Planning Prep
+
+Before writing a plan, use `AskUserQuestion` to ask whether to run `/plan-style`.
+
 ## Pre-Implementation Prep
 
 After plan approval (ExitPlanMode) and before making edits:
