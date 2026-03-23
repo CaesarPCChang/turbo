@@ -28,9 +28,9 @@ The other core piece is [`/self-improve`](skills/self-improve/SKILL.md), which m
 
 ## How Skills Connect
 
-This diagram shows how [`/finalize`](skills/finalize/SKILL.md) orchestrates its pipeline and how the key sub-skills compose. It covers the core workflow, not every skill in Turbo. See [All Skills](#all-skills) for the full list.
+This diagram shows how [`/finalize`](skills/finalize/SKILL.md) composes its pipeline and how the key sub-skills compose. It covers the core workflow, not every skill in Turbo. See [All Skills](#all-skills) for the full list.
 
-![How Skills Connect](assets/how-skills-connect.svg)
+![How Skills Connect](assets/how-skills-connect.svg?raw=true)
 
 ## Works Best With
 
@@ -49,7 +49,7 @@ If your plan is vague, your architecture is unclear, and you skip every review f
 
 ## The Puzzle Piece Philosophy
 
-Every skill is a self-contained piece. Orchestrator skills like [`/finalize`](skills/finalize/SKILL.md) compose them into workflows, but each piece works independently too.
+Every skill is a self-contained piece. Pipeline skills like [`/finalize`](skills/finalize/SKILL.md) compose them into workflows, but each piece works independently too.
 
 Want to swap a piece? For example:
 
