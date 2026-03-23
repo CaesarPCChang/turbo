@@ -5,7 +5,7 @@ description: "Project-wide health audit pipeline that fans out to all analysis s
 
 # Audit
 
-Project-wide health audit. Fans out to all analysis skills, evaluates findings, and writes `.turbo/audit.md`. Analysis-only — does not apply fixes.
+Project-wide health audit. Fans out to all analysis skills, evaluates findings, and writes `.turbo/audit.md` and `.turbo/audit.html`. Analysis-only — does not apply fixes.
 
 ## Task Tracking
 
@@ -15,7 +15,8 @@ At the start, use `TaskCreate` to create a task for each phase:
 2. Threat model
 3. Run analysis skills
 4. Evaluate findings
-5. Generate report
+5. Generate markdown report
+6. Generate HTML report
 
 ## Step 1: Scope and Partition
 
@@ -73,7 +74,7 @@ Launch one agent each:
 
 Aggregate all findings from all agents. Run the `/evaluate-findings` skill once on the combined set.
 
-## Step 5: Generate Report
+## Step 5: Generate Markdown Report
 
 Write `.turbo/audit.md` using the template below. Populate the dashboard by counting findings per category and applying health thresholds. Output the dashboard as text before writing the file.
 
@@ -130,6 +131,23 @@ Write `.turbo/audit.md` using the template below. Populate the dashboard by coun
 ### Threat Model
 <status and summary>
 ```
+
+## Step 6: Generate HTML Report
+
+Convert the markdown report into a styled, interactive HTML page.
+
+1. Run the `/frontend-design` skill to load design principles.
+2. Read `.turbo/audit.md` for the full report content.
+3. Write a self-contained `.turbo/audit.html` (single file, no external dependencies beyond Google Fonts) that presents all findings from the markdown report with:
+   - Dashboard health grid with severity color-coding (red=Fail, amber=Warn, green=Pass)
+   - Severity summary bar (P0/P1/P2/P3 counts)
+   - Sticky navigation between report sections
+   - Collapsible category sections
+   - Finding tables with file, line, and description columns
+   - Severity badges and color-coded group labels
+   - Entrance animations and hover states
+   - Print-friendly styles via `@media print`
+   - Responsive layout for mobile
 
 ## Rules
 
