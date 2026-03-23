@@ -1,6 +1,6 @@
 ---
 name: simplify-code
-description: "Review code for reuse, quality, efficiency, and clarity issues, then fix them. Use when the user asks to \"simplify code\", \"simplify changes\", \"clean up code\", \"refactor code\", \"refactor changes\", or \"run simplify\"."
+description: "Run a multi-agent review of changed files for reuse, quality, efficiency, and clarity issues followed by automated fixes. Use when the user asks to \"simplify code\", \"review changed code\", \"check for code reuse\", \"review code quality\", \"review efficiency\", \"simplify changes\", \"clean up code\", \"refactor changes\", or \"run simplify\"."
 ---
 
 # Simplify Code
@@ -15,17 +15,21 @@ Determine what to review:
 - If a **file list or directory** was provided, review those files directly (read the full files, not a diff).
 - If **neither** was provided, determine the appropriate diff command (e.g., `git diff`, `git diff --cached`, `git diff HEAD`) based on the current git state. If there are no git changes, review the most recently modified files mentioned in the conversation.
 
-## Step 2: Review
+## Step 2: Launch Four Review Agents in Parallel
 
-For diff scope: run the diff command to obtain the changes and only flag issues introduced by the changeset. For file scope: read the specified files. For each file, read enough surrounding context to understand the code. Then check for all of the following:
+Use the Agent tool to launch all four agents in a single message (`model: "opus"`, do not set `run_in_background`). Pass the scope from Step 1 to each agent.
 
-### Reuse
+### Agent 1: Code Reuse Review
+
+For each change:
 
 1. **Search for existing utilities and helpers** that could replace newly written code. Look for similar patterns elsewhere in the codebase — common locations are utility directories, shared modules, and files adjacent to the changed ones.
 2. **Flag any new function that duplicates existing functionality.** Suggest the existing function to use instead.
 3. **Flag any inline logic that could use an existing utility** — hand-rolled string manipulation, manual path handling, custom environment checks, and similar patterns are common candidates.
 
-### Quality
+### Agent 2: Code Quality Review
+
+Review the same changes for hacky patterns:
 
 1. **Redundant state**: state that duplicates existing state, cached values that could be derived, reactive subscriptions that could be direct calls
 2. **Parameter sprawl**: adding new parameters to a function instead of generalizing or restructuring existing ones
@@ -34,7 +38,9 @@ For diff scope: run the diff command to obtain the changes and only flag issues 
 5. **Stringly-typed code**: using raw strings where constants, enums, or dedicated types already exist in the codebase
 6. **Unnecessary wrapper nesting**: container elements or wrapper layers that add no structural or layout value
 
-### Efficiency
+### Agent 3: Efficiency Review
+
+Review the same changes for efficiency:
 
 1. **Unnecessary work**: redundant computations, repeated file reads, duplicate network/API calls, N+1 patterns
 2. **Algorithmic complexity**: nested iterations, repeated linear searches replaceable by sets/maps, missing early exits
@@ -44,7 +50,9 @@ For diff scope: run the diff command to obtain the changes and only flag issues 
 6. **Memory**: unbounded data structures, missing cleanup, resource leaks
 7. **Overly broad operations**: reading entire files when only a portion is needed, loading all items when filtering for one
 
-### Clarity and Standards
+### Agent 4: Clarity and Standards Review
+
+Review the same changes for clarity, standards, and balance:
 
 1. **Project standards**: coding conventions from CLAUDE.md not followed — import sorting, naming conventions, component patterns, error handling patterns, module style
 2. **Unnecessary complexity**: deep nesting, redundant abstractions, unclear variable or function names, comments that describe obvious code, nested ternary operators (prefer switch/if-else chains)
@@ -54,6 +62,6 @@ For diff scope: run the diff command to obtain the changes and only flag issues 
 
 ## Step 3: Fix Issues
 
-Apply each fix directly, skipping false positives. Only edit files — do not stage, build, or test.
+Wait for all four agents to complete. Aggregate their findings, then apply each fix directly, skipping false positives. Only edit files — do not stage, build, or test.
 
 When done, briefly summarize what was fixed (or confirm the code was already clean).
