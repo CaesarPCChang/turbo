@@ -132,7 +132,7 @@ Each session handles one prompt to keep context focused.
 | Skill | What it does | Uses |
 |---|---|---|
 | [`/finalize`](skills/finalize/SKILL.md) | Post-implementation QA: polish, commit, PR | [`/polish-code`](skills/polish-code/SKILL.md), [`/self-improve`](skills/self-improve/SKILL.md), [`/commit-staged`](skills/commit-staged/SKILL.md), [`/create-pr`](skills/create-pr/SKILL.md), [`/update-pr`](skills/update-pr/SKILL.md), [`/resolve-pr-comments`](skills/resolve-pr-comments/SKILL.md) |
-| [`/audit`](skills/audit/SKILL.md) | Project-wide health audit: all analysis skills, evaluation, markdown and HTML report | [`/review-correctness`](skills/review-correctness/SKILL.md), [`/review-security`](skills/review-security/SKILL.md), [`/review-api-usage`](skills/review-api-usage/SKILL.md), [`/peer-review`](skills/peer-review/SKILL.md), [`/review-quality`](skills/review-quality/SKILL.md), [`/review-test-coverage`](skills/review-test-coverage/SKILL.md), [`/review-dependencies`](skills/review-dependencies/SKILL.md), [`/find-dead-code`](skills/find-dead-code/SKILL.md), [`/create-threat-model`](skills/create-threat-model/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/frontend-design`](skills/frontend-design/SKILL.md) |
+| [`/audit`](skills/audit/SKILL.md) | Project-wide health audit: all analysis skills, evaluation, markdown and HTML report | [`/review-correctness`](skills/review-correctness/SKILL.md), [`/review-security`](skills/review-security/SKILL.md), [`/review-api-usage`](skills/review-api-usage/SKILL.md), [`/peer-review`](skills/peer-review/SKILL.md), [`/review-quality`](skills/review-quality/SKILL.md), [`/review-test-coverage`](skills/review-test-coverage/SKILL.md), [`/review-dependencies`](skills/review-dependencies/SKILL.md), [`/review-tooling`](skills/review-tooling/SKILL.md), [`/find-dead-code`](skills/find-dead-code/SKILL.md), [`/create-threat-model`](skills/create-threat-model/SKILL.md), [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/frontend-design`](skills/frontend-design/SKILL.md) |
 
 ### Workflows
 
@@ -155,6 +155,7 @@ Each session handles one prompt to keep context focused.
 | [`/review-quality`](skills/review-quality/SKILL.md) | Cross-file quality analysis: duplication, architectural consistency, abstraction opportunities | |
 | [`/review-test-coverage`](skills/review-test-coverage/SKILL.md) | Analyze code for test coverage gaps and missing edge cases | |
 | [`/review-dependencies`](skills/review-dependencies/SKILL.md) | Detect outdated or vulnerable dependencies | |
+| [`/review-tooling`](skills/review-tooling/SKILL.md) | Detect dev tooling gaps across linters, formatters, hooks, test runners, and CI/CD | |
 | [`/peer-review`](skills/peer-review/SKILL.md) | AI code review via codex | [`/codex-review`](skills/codex-review/SKILL.md) |
 | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md) | Confidence-based triage of review feedback | |
 | [`/find-dead-code`](skills/find-dead-code/SKILL.md) | Identify unused code via parallel analysis | [`/evaluate-findings`](skills/evaluate-findings/SKILL.md), [`/investigate`](skills/investigate/SKILL.md) |

@@ -68,6 +68,7 @@ Launch one agent each:
 |---|---|
 | `/review-test-coverage` | Project-wide |
 | `/review-dependencies` | Project-wide |
+| `/review-tooling` | Project-wide |
 | `/find-dead-code` | Has its own partitioning |
 
 ## Step 4: Evaluate Findings
@@ -96,6 +97,7 @@ Write `.turbo/audit.md` using the template below. Populate the dashboard by coun
 | Code Quality | <Pass/Warn/Fail> | <N> | <N> |
 | Test Coverage | <Pass/Warn/Fail> | <N> | <N> |
 | Dependencies | <Pass/Warn/Fail> | <N> | <N> |
+| Tooling | <Pass/Warn/Fail> | <N> | <N> |
 | Dead Code | <Pass/Warn/Fail> | <N> | <N> |
 | Threat Model | <Present/Missing> | — | — |
 
@@ -124,6 +126,9 @@ Write `.turbo/audit.md` using the template below. Populate the dashboard by coun
 
 ### Dependencies
 <findings from /review-dependencies>
+
+### Tooling
+<findings from /review-tooling>
 
 ### Dead Code
 <findings from /find-dead-code>
