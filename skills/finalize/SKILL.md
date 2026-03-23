@@ -43,20 +43,24 @@ If the user wants a PR and the current branch is the default branch:
 1. Suggest a branch name based on the changes and use `AskUserQuestion` to confirm or adjust
 2. Create and switch to the new branch: `git checkout -b <branch-name>`
 
-### Step 3: Commit
+### Step 3: Check for Unstaged Changes
+
+Run `git status` to check for unstaged changes. If any exist, stage them. This catches files modified by auto-formatters that were not re-staged.
+
+### Step 4: Commit
 
 Run the `/commit-staged` skill.
 
 If the commit fails due to a pre-commit hook (formatter, linter), fix the issues — or run the project's format/lint script to auto-fix — then **re-stage all modified files** before retrying. Pre-commit hooks may modify files in the working tree without updating the staging area.
 
-### Step 4: Push and Create or Update PR (if Requested)
+### Step 5: Push and Create or Update PR (if Requested)
 
 - **Push only** — push (do not create or update a PR)
 - **Create PR** — push with `-u` and run the `/create-pr` skill
 - **Update PR** — push and run the `/update-pr` skill
 - **Skip** — end the workflow (do not push)
 
-### Step 5: Resolve PR Comments
+### Step 6: Resolve PR Comments
 
 Use `AskUserQuestion` to ask if the user wants to wait for automated reviewers to finish and resolve comments.
 
