@@ -8,7 +8,7 @@ A composable dev process for [Claude Code](https://docs.anthropic.com/en/docs/cl
 2. **Implement** — Build it with Claude
 3. **Run [`/finalize`](skills/finalize/SKILL.md)** — Tests, iterative code polishing, commit, and PR. One command.
 
-Everything else in Turbo builds on this loop: planning pipelines for large projects, debugging tools for when things break, and self-improvement that makes each session teach the next. There are [50+ skills](#all-skills) beyond [`/finalize`](skills/finalize/SKILL.md). Read on for the full picture.
+Everything else in Turbo builds on this loop: planning pipelines for large projects, a [project-wide audit](#project-wide-audit) for assessing codebase health, debugging tools for when things break, and self-improvement that makes each session teach the next. There are [50+ skills](#all-skills) beyond [`/finalize`](skills/finalize/SKILL.md). Read on for the full picture.
 
 ## What Is This?
 
@@ -17,7 +17,7 @@ Turbo covers the full dev lifecycle: reviewing code, creating PRs, investigating
 Five ideas shape the design:
 
 1. **Standardized process.** Skills capture dev workflows so you can run them directly instead of prompting from scratch. [`/finalize`](skills/finalize/SKILL.md) runs your entire post-implementation QA in one command. [`/investigate`](skills/investigate/SKILL.md) follows a structured root cause analysis cycle. The skill is the prompt.
-2. **Layered design.** Skills compose other skills to any depth. [`/review-correctness`](skills/review-correctness/SKILL.md) analyzes code for bugs. [`/review-code`](skills/review-code/SKILL.md) chains five review skills with evaluation. [`/polish-code`](skills/polish-code/SKILL.md) loops write tests → simplify → review → test → lint until stable. [`/finalize`](skills/finalize/SKILL.md) wraps the whole pipeline with self-improvement and commit. They [work together](#how-skills-connect) with a natural, predictable interface.
+2. **Layered design.** Skills compose other skills to any depth. [`/review-correctness`](skills/review-correctness/SKILL.md) analyzes code for bugs. [`/review-code`](skills/review-code/SKILL.md) chains five review skills with evaluation. [`/polish-code`](skills/polish-code/SKILL.md) loops write tests → simplify → review → test → lint until stable. [`/finalize`](skills/finalize/SKILL.md) wraps the whole pipeline with self-improvement and commit. [`/audit`](skills/audit/SKILL.md) fans out to all analysis skills in parallel, evaluates the combined findings, and produces a health report. They [work together](#how-skills-connect) with a natural, predictable interface.
 3. **Swappable by design.** Every skill owns one concern and communicates through standard interfaces. Replace any piece with your own and the pipeline adapts. See [The Puzzle Piece Philosophy](#the-puzzle-piece-philosophy) for details.
 4. **Works out of the box.** Install the skills and the full workflow is ready. Dependencies are standard dev tooling (GitHub CLI, Codex) that most teams already have.
 5. **Just skills.** No framework, no custom runtime, no new memory system. Skills are plain markdown that use Claude Code's native primitives (git, filesystem, built-in tools). Remove an independent skill and the rest still work.
@@ -50,7 +50,7 @@ If your plan is vague, your architecture is unclear, and you skip every review f
 
 ## The Puzzle Piece Philosophy
 
-Every skill is a self-contained piece. Pipeline skills like [`/finalize`](skills/finalize/SKILL.md) compose them into workflows, but each piece works independently too.
+Every skill is a self-contained piece. Pipeline skills like [`/finalize`](skills/finalize/SKILL.md) and [`/audit`](skills/audit/SKILL.md) compose them into workflows, but each piece works independently too.
 
 Want to swap a piece? For example:
 
@@ -112,6 +112,12 @@ The recommended way to use Turbo:
 [`/self-improve`](skills/self-improve/SKILL.md) is another core skill. Run it anytime before ending your session (it's also part of [`/finalize`](skills/finalize/SKILL.md) Phase 2). It scans the conversation for corrections, repeated guidance, failure modes, and preferences, then routes each lesson to the right place: project CLAUDE.md, auto memory, or existing/new skills. It routes lessons through Claude Code's built-in knowledge layers and, over time, makes Claude better at your specific project.
 
 [`/note-improvement`](skills/note-improvement/SKILL.md) captures improvement opportunities that come up during work but are out of scope: code review findings you chose to skip, refactoring ideas, missing tests. These get tracked in `.turbo/improvements.md` so they don't get lost. Since `.turbo/` is gitignored, it doesn't clutter the repo. When you're ready to act on them, [`/implement-improvements`](skills/implement-improvements/SKILL.md) validates each entry against the current codebase (filtering out stale items), then plans and implements the remaining ones.
+
+### Project-Wide Audit
+
+[`/audit`](skills/audit/SKILL.md) is Turbo's other pipeline. It fans out to all analysis skills in parallel (correctness, security, API usage, quality, test coverage, dependencies, tooling, dead code), evaluates the combined findings, and produces a health report at `.turbo/audit.md` with a dashboard and an interactive HTML version. Run it to assess codebase health before a major release, after onboarding to a new project, or on a regular cadence.
+
+[`/audit`](skills/audit/SKILL.md) is analysis-only: it produces the report and stops there. When you're ready to act on findings, use [`/apply-findings`](skills/apply-findings/SKILL.md) or address them manually.
 
 ## The Planning Pipeline (Optional)
 
