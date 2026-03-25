@@ -56,7 +56,9 @@ Stage all changes made in this step before continuing.
 
 ## Step 7: Re-run if Changed
 
-If Steps 3-6 produced any changes during this run, re-run `/polish-code` via skill invocation (use the Skill tool) scoped to only the files modified in the previous iteration. Use `git diff --cached -- <file1> <file2> ...` as the diff command for `/simplify-code` and `/review-code`. Cap at 3 total iterations (the initial run plus up to 2 re-runs) to prevent runaway loops.
+Check whether any file was edited during Steps 3-6. Any edit counts, regardless of how small or mechanical it seems. A one-line doc comment fix, a renamed variable, a reformatted import — all trigger a re-run.
+
+If any file was edited, re-run `/polish-code` via skill invocation (use the Skill tool) scoped to only the files modified in the previous iteration. Use `git diff --cached -- <file1> <file2> ...` as the diff command for `/simplify-code` and `/review-code`. Cap at 3 total iterations (the initial run plus up to 2 re-runs) to prevent runaway loops.
 
 ## Rules
 
