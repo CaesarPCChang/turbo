@@ -24,6 +24,7 @@ Each skill is self-contained. Skills compose other skills to any depth via `/ski
 - Skills should be context-agnostic: accept caller-specified context but determine their own when called standalone (from conversation context or git state). See `/simplify-code` as the model.
 - Analysis review skills accept a standardized scope interface: a diff command OR a file/directory list. In diff mode, only flag issues introduced by the changeset. In file scope mode, all issues in the reviewed files are in scope.
 - Skills should avoid side effects outside their domain. Let the caller or a dedicated skill handle cross-cutting concerns (e.g., staging files).
+- Step headings and task tracking items use human-readable names derived from skill names (e.g., "Simplify Code" for `/simplify-code`), not abbreviated names ("Simplify") or literal slash-prefixed names ("/simplify-code")
 - Run `/create-skill` when creating or editing skills
 - When adding a new skill, update README.md: add it to the appropriate table in "All Skills" and update any relevant prose sections
 

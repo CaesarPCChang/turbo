@@ -60,8 +60,8 @@ Review the same changes for clarity, standards, and balance:
 4. **Over-simplification**: overly clever solutions that are hard to understand, too many concerns combined into single functions or components, "fewer lines" prioritized over readability (dense one-liners, nested ternaries), helpful abstractions removed that were aiding code organization
 5. **Dead weight**: unnecessary comments, redundant code, abstractions that add indirection without value
 
-## Step 3: Apply Findings
+## Step 3: Fix Issues
 
-Wait for all four agents to complete. Aggregate their findings, then run the `/apply-findings` skill.
+Wait for all four agents to complete. Aggregate their findings, then apply each fix directly, skipping false positives.
 
-Briefly summarize what was fixed (or confirm the code was already clean).
+When done, briefly summarize what was fixed (or confirm the code was already clean).
