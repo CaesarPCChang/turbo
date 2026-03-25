@@ -45,8 +45,6 @@ Approach: [agent-browser / peekaboo / terminal]
 Dev server command: [command]
 ```
 
-Then use `AskUserQuestion` to ask for approval before executing.
-
 ## Step 4: Execute
 
 ### Web App Path
